@@ -28,8 +28,18 @@
 import Hero from '../components/shared/Hero'
 import CourseCard from '../components/coursePage/courseCard'
 import BlogCard from '../components/blogPage/blogCard'
+import { mapState, mapActions } from 'vuex'
+
 export default {
-  components: { BlogCard, CourseCard, Hero }
+  components: { BlogCard, CourseCard, Hero },
+  computed: {
+    ...mapState({
+      courses: (state) => state.course.courses
+    })
+  },
+  async fetch({ store }) {
+    await store.dispatch('course/fetchCourses')
+  }
 }
 </script>
 
