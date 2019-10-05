@@ -26,7 +26,7 @@ module.exports = {
         info: 'Bla bla bla bla',
         createdAt: moment().toISOString(),
         updatedAt: moment().toISOString(),
-        username: 'Alex',
+        username: 'AlexBryksin',
         password: '123456',
         role: 'admin',
         products: [product1Id]
