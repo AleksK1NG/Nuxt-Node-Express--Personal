@@ -10,7 +10,7 @@ class DB {
 
   async cleanDb() {
     for (let collection of this.collections) {
-      var model = data[collection].model
+      let model = data[collection].model
       if (model) {
         await model.deleteMany({}, () => {})
         console.log(`Data for model ${model.collection.collectionName} Deleted!`)
@@ -19,7 +19,7 @@ class DB {
   }
 
   async pushDataToDb() {
-    var collectionToResolve = []
+    let collectionToResolve = []
     for (let collection of this.collections) {
       collectionToResolve.push(
         Promise.all(data[collection].items.map((item) => new data[collection].model(item).save())).then((data) =>
