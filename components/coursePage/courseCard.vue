@@ -1,5 +1,13 @@
 <template>
   <div class="card">
+    <div class="card-image">
+      <figure class="image is-4by2">
+        <img
+          src="https://images.unsplash.com/photo-1544980919-e17526d4ed0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80"
+          alt="Placeholder image"
+        />
+      </figure>
+    </div>
     <div class="card-content">
       <div class="media">
         <div class="media-content">
@@ -11,16 +19,21 @@
         Some Description
         <br />
       </div>
+      <div class="price-box">
+        <span class="price">150$</span>
+        <span class="disc-price">9.99$</span>
+      </div>
     </div>
     <footer class="card-footer">
-      <nuxt-link :to="'#'" class="card-footer-item">Read More</nuxt-link>
+      <nuxt-link :to="''" class="card-footer-item">Learn More</nuxt-link>
+      <a target="_" :href="'#'" class="card-footer-item">Enroll</a>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'blogCard'
+  name: 'coursecard'
 }
 </script>
 
