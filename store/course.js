@@ -8,9 +8,7 @@ export const state = () => ({
 })
 
 export const actions = {
-  async fetchCourses({ commit, state }) {
-    console.log('state  => ', state)
-    debugger
+  async fetchCourses({ commit }) {
     commit(SET_LOADING, true)
     try {
       const courses = await this.$axios.$get('/api/v1/products')
