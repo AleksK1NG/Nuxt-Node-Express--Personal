@@ -22,6 +22,26 @@ export const actions = {
       commit(SET_LOADING, false)
       return error
     }
+  },
+
+  async loadUSer({ commit, getters }) {
+    commit(SET_LOADING, true)
+
+    if (getters.userGetter) return Promise.resolve(getters.userGetter)
+
+    try {
+      const user = await this.$axios.$get('/api/v1/users/me')
+
+      commit(SET_USER, user)
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      return user
+    } catch (e) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
   }
 }
 
