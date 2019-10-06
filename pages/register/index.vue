@@ -135,6 +135,7 @@
 
 <script>
 import { required, email, minLength, url, sameAs } from 'vuelidate/lib/validators'
+import { supportedFileType } from '../../helpers/validators'
 export default {
   name: 'register',
   data: () => ({
@@ -158,7 +159,8 @@ export default {
         minLength: minLength(6)
       },
       avatar: {
-        url
+        url,
+        supportedFileType
       },
       email: {
         required,
