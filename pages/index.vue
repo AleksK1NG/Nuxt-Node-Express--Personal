@@ -28,7 +28,7 @@
 import Hero from '../components/shared/Hero'
 import CourseCard from '../components/coursePage/courseCard'
 import BlogCard from '../components/blogPage/blogCard'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   components: { BlogCard, CourseCard, Hero },
