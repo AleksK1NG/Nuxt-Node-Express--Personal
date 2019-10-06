@@ -31,4 +31,9 @@ export const mutations = {
   [SET_USER]: (state, user) => (state.user = user)
 }
 
-export const getters = {}
+export const getters = {
+  userGetter: (state) => state.user || null,
+  isLoadingGetter: (state) => state.isLoading,
+  isAuthenticatedGetter: (state) => !!state.user,
+  isAdminGetter: (state) => state.user && state.user.role && state.user.role === 'admin'
+}

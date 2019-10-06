@@ -7,7 +7,7 @@
       <!-- Adds click to open -->
       <!-- Adds active class -->
       <a
-        @click="() => console.log('click !')"
+        @click="() => {}"
         role="button"
         class="navbar-burger burger"
         aria-label="menu"
@@ -44,15 +44,13 @@
         <div class="navbar-item">
           <div class="buttons">
             <!-- If Authenticated -->
-            <template v-if="false">
+            <template v-if="isAuth">
               <figure class="image avatar is-48x48 m-r-sm">
-                <img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png" />
+                <img class="is-rounded" :src="user.avatar" />
               </figure>
-              <div class="m-r-sm m-b-sm">
-                Welcome User!
-              </div>
+              <div class="m-r-sm m-b-sm">Welcome {{ user.username }}!</div>
               <!-- If Admin -->
-              <button v-if="true" class="button is-link is-outlined" @click="() => {}">
+              <button v-if="isAdmin" class="button is-link is-outlined" @click="() => {}">
                 Instructor
               </button>
               <a class="button is-primary" @click="() => {}">
@@ -75,8 +73,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  computed: {
+    ...mapGetters({
+      user: 'auth/userGetter',
+      isAuth: 'auth/isAuthenticatedGetter',
+      isAdmin: 'auth/isAdminGetter'
+    })
+  }
 }
 </script>
 
