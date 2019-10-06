@@ -42,6 +42,22 @@ export const actions = {
       commit(SET_LOADING, false)
       return error
     }
+  },
+
+  async logout({ commit }) {
+    try {
+      await this.$axios.$post('/api/v1/users/logout')
+
+      commit(SET_USER, null)
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      return true
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
   }
 }
 

@@ -53,7 +53,7 @@
               <button v-if="isAdmin" class="button is-link is-outlined" @click="() => {}">
                 Instructor
               </button>
-              <a class="button is-primary" @click="() => {}">
+              <a class="button is-primary" @click="logout">
                 Logout
               </a>
             </template>
@@ -82,6 +82,14 @@ export default {
       isAuth: 'auth/isAuthenticatedGetter',
       isAdmin: 'auth/isAdminGetter'
     })
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout').then(() => {
+        this.$router.push('/login')
+        this.$toasted.info('You are logged out', { duration: 3000, position: 'top-center' })
+      })
+    }
   }
 }
 </script>
