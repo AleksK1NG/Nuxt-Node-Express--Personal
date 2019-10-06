@@ -23,7 +23,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/filters' }, { src: '~/plugins/vuelidate' }],
+  plugins: [{ src: '~/plugins/filters' }, { src: '~/plugins/vuelidate' }, { src: '~/plugins/toasted', ssr: false }],
   /*
    ** Nuxt.js dev-modules
    */
