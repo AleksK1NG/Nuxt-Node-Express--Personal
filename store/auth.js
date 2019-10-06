@@ -33,10 +33,15 @@ export const actions = {
       commit(SET_LOADING, false)
       return true
     } catch (error) {
+      let errorMessage = 'Something went wrong, try to register again!'
+      if (error.response.data.errors) {
+        errorMessage = error.response.data.errors.message
+        return errorMessage
+      }
       console.error(error)
       commit(SET_ERROR, error)
       commit(SET_LOADING, false)
-      return error
+      return errorMessage
     }
   },
 
