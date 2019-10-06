@@ -85,14 +85,20 @@ export default {
       }
     }
   },
+  computed: {
+    isFormValid() {
+      return !this.$v.$invalid
+    }
+  },
   methods: {
     login() {
       this.$v.form.$touch()
-      console.log(this.form)
 
-      this.$store.dispatch('auth/login', this.form).then(user => console.log('from login => ', user))
-      // this.form.email = null
-      // this.form.password = null
+      if (this.isFormValid) {
+        this.$store.dispatch('auth/login', this.form).then(() => {
+          this.$router.push('/')
+        })
+      }
     }
   }
 }

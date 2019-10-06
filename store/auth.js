@@ -15,12 +15,12 @@ export const actions = {
       commit(SET_USER, user)
       commit(SET_ERROR, null)
       commit(SET_LOADING, false)
-      return Promise.resolve(user)
+      return user
     } catch (error) {
       console.error(error)
       commit(SET_ERROR, error)
       commit(SET_LOADING, false)
-      return Promise.resolve(error)
+      return error
     }
   }
 }

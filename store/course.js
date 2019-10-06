@@ -15,12 +15,12 @@ export const actions = {
       commit(SET_COURSES, courses)
       commit(SET_LOADING, false)
       commit(SET_ERROR, null)
-      return new Promise.resolve(courses)
+      return courses
     } catch (err) {
       console.error(err)
       commit(SET_ERROR, err)
       commit(SET_LOADING, false)
-      return new Promise.reject(err)
+      return err
     }
   }
 }
