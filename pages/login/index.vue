@@ -68,6 +68,7 @@ import { required, email } from 'vuelidate/lib/validators'
 
 export default {
   name: 'login',
+  middleware: 'guest',
   data: () => ({
     form: {
       email: null,
