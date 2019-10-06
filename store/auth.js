@@ -24,6 +24,22 @@ export const actions = {
     }
   },
 
+  async register({ commit }, registerData) {
+    commit(SET_LOADING, true)
+    try {
+      await this.$axios.$post('/api/v1/users/register', registerData)
+
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      return true
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
+  },
+
   async loadUSer({ commit, getters }) {
     commit(SET_LOADING, true)
 
