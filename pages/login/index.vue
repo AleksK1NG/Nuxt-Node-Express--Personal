@@ -99,9 +99,9 @@ export default {
           .dispatch('auth/login', this.form)
           .then(() => {
             this.$router.push('/')
-            this.$toasted.success('Success login', { duration: 3000 })
+            this.$toasted.success('Success login', { duration: 3000, position: 'top-center' })
           })
-          .catch(() => this.$toasted.error('Wrong email or password', { duration: 3000 }))
+          .catch(() => this.$toasted.error('Wrong email or password', { duration: 3000, position: 'top-center' }))
       }
     }
   }
