@@ -90,6 +90,7 @@ export default {
       this.$v.form.$touch()
       console.log(this.form)
 
+      this.$store.dispatch('auth/login', this.form).then(user => console.log('from login => ', user))
       // this.form.email = null
       // this.form.password = null
     }

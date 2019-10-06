@@ -16,7 +16,7 @@ const userSchema = new Schema({
   username: { type: String, required: true, minlength: [6, 'Too short, min is 6 characters'] },
   password: {
     type: String,
-    minlength: [4, 'Too short, min is 4 characters'],
+    minlength: [6, 'Too short, min is 4 characters'],
     maxlength: [32, 'Too long, max is 32 characters'],
     required: 'Password is required'
   },
@@ -53,7 +53,7 @@ userSchema.pre('save', function(next) {
   })
 })
 
-//Every user have acces to this methods
+//Every user have access to this methods
 userSchema.methods.comparePassword = function(candidatePassword, callback) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) {
