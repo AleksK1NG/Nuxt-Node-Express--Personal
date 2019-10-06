@@ -140,6 +140,7 @@ import { required, email, minLength, url, sameAs } from 'vuelidate/lib/validator
 import { supportedFileType } from '../../helpers/validators'
 export default {
   name: 'register',
+  middleware: 'guest',
   data: () => ({
     form: {
       username: null,
