@@ -95,9 +95,13 @@ export default {
       this.$v.form.$touch()
 
       if (this.isFormValid) {
-        this.$store.dispatch('auth/login', this.form).then(() => {
-          this.$router.push('/')
-        })
+        this.$store
+          .dispatch('auth/login', this.form)
+          .then(() => {
+            this.$router.push('/')
+            this.$toasted.success('Success login', { duration: 3000 })
+          })
+          .catch(() => this.$toasted.error('Wrong email or password', { duration: 3000 }))
       }
     }
   }
