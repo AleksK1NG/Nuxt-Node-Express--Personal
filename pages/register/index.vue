@@ -71,7 +71,9 @@
                   />
                   <div v-if="$v.form.avatar.$error" class="form-error">
                     <span v-if="!$v.form.avatar.url" class="help is-danger">Url format is not valid!</span>
-                    <span v-if="!$v.form.avatar.supportedFileType" class="help is-danger">Selected file type is not valid!</span>
+                    <span v-if="!$v.form.avatar.supportedFileType" class="help is-danger"
+                      >Selected file type is not valid!</span
+                    >
                   </div>
                 </div>
               </div>
@@ -176,10 +178,23 @@ export default {
       }
     }
   },
+  computed: {
+    isFormValid() {
+      return !this.$v.form.$invalid
+    }
+  },
   methods: {
     register() {
       this.$v.form.$touch()
-      console.log(this.form)
+      if (this.isFormValid) {
+        this.$store
+          .dispatch('auth/register', this.form)
+          .then(() => {
+            this.$router.push('/login')
+            this.$toasted.success('Success register', { duration: 3000, position: 'top-center' })
+          })
+          .catch(() => this.$toasted.error('Wrong email or password', { duration: 3000, position: 'top-center' }))
+      }
     }
   }
 }
