@@ -1,38 +1,31 @@
 <template>
   <div class="full-page-takeover-window">
     <div class="full-page-takeover-page">
-      <InstructorHeader title="Step 1 of 2" exitLink="#" />
+      <InstructorHeader title="Step 1 of 2" exitLink="/instructor/courses" />
       <div class="full-page-takeover-header-bottom-progress">
-        <div :style="{ width: '50%' }" class="full-page-takeover-header-bottom-progress-highlight"></div>
+        <div :style="{ width: progress }" class="full-page-takeover-header-bottom-progress-highlight"></div>
       </div>
       <div class="course-create full-page-takeover-container">
         <div class="container">
-          <!-- STEP 1 of FORM  -->
-          <CreateCourseStepOne />
-          <!-- STEP 1 END-->
-          <!-- STEP 2 of FORM -->
-          <CreateCourseStepTwo />
-          <!-- STEP 2 END -->
+          <CreateCourseStepOne v-if="activeStep === 1" />
+          <CreateCourseStepTwo v-if="activeStep === 2" />
         </div>
         <div class="full-page-footer-row">
           <div class="container">
             <div class="full-page-footer-col">
-              <div>
-                <a @click.prevent="() => {}" class="button is-large">Previous</a>
+              <div v-if="!isFirstStep">
+                <a @click.prevent="prevStep" class="button is-large">Previous</a>
               </div>
-              <!-- <div v-else class="empty-container">
-              </div> -->
+              <div v-else class="empty-container"></div>
             </div>
             <div class="full-page-footer-col">
               <div>
-                <button @click.prevent="() => {}" class="button is-large float-right">
+                <button v-if="!isLastStep" @click.prevent="nextStep" class="button is-large float-right">
                   Continue
                 </button>
-                <!-- <button
-                  @click="() => {}"
-                  class="button is-success is-large float-right">
+                <button v-else @click="() => {}" class="button is-success is-large float-right">
                   Confirm
-                </button> -->
+                </button>
               </div>
             </div>
           </div>
@@ -48,7 +41,35 @@ import CreateCourseStepTwo from '../../../components/insctructor/CreateCourseSte
 import InstructorHeader from '../../../components/shared/Header'
 export default {
   name: 'createCourse',
-  components: { InstructorHeader, CreateCourseStepTwo, CreateCourseStepOne }
+  components: { InstructorHeader, CreateCourseStepTwo, CreateCourseStepOne },
+  data: () => ({
+    activeStep: 1,
+    steps: ['CourseCreateStep1', 'CourseCreateStep2']
+  }),
+  computed: {
+    stepsLength() {
+      return this.steps.length
+    },
+    isLastStep() {
+      return this.activeStep === this.stepsLength
+    },
+    isFirstStep() {
+      return this.activeStep === 1
+    },
+    progress() {
+      return `${(100 / this.stepsLength) * this.activeStep}%`
+    }
+  },
+  methods: {
+    nextStep() {
+      if (this.activeStep === 2) return
+      this.activeStep++
+    },
+    prevStep() {
+      if (this.activeStep === 1) return
+      this.activeStep--
+    }
+  }
 }
 </script>
 
