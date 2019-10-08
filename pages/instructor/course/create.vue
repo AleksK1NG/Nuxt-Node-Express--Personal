@@ -87,6 +87,9 @@ export default {
       this.form = { ...this.form, ...data }
       this.canProceed = isValid
     }
+  },
+  fetch({ store }) {
+    store.dispatch('category/fetchCategories')
   }
 }
 </script>
