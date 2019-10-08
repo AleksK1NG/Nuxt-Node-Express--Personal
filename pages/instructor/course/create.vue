@@ -8,7 +8,7 @@
       <div class="course-create full-page-takeover-container">
         <div class="container">
           <keep-alive>
-            <component :is="activeComponent" @updateStep="mergeFormData" />
+            <component ref="activeComponentRef" :is="activeComponent" @updateStep="mergeFormData" />
           </keep-alive>
         </div>
         <div class="full-page-footer-row">
@@ -81,10 +81,14 @@ export default {
     nextStep() {
       if (this.activeStep === 2) return
       this.activeStep++
+      // access component computed value by using ref
+      // $nextTick
+      this.$nextTick(() => (this.canProceed = this.$refs.activeComponentRef.isValid))
     },
     prevStep() {
       if (this.activeStep === 1) return
       this.activeStep--
+      this.canProceed = true
     },
     mergeFormData({ data, isValid }) {
       this.form = { ...this.form, ...data }
