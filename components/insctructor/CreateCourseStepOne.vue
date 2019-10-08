@@ -9,14 +9,44 @@
     <form class="course-create-form">
       <div class="course-create-form-group">
         <div class="field course-create-form-field control has-icons-right">
-          <input :maxLength="50" type="text" placeholder="e.g. Amazing Course in Flutter!" class="input is-large" />
+          <input
+            @input="emitFormData"
+            v-model="form.title"
+            :maxLength="50"
+            type="text"
+            placeholder="e.g. Amazing Course in Flutter!"
+            class="input is-large"
+          />
         </div>
       </div>
     </form>
   </div>
 </template>
 <script>
+import { required } from 'vuelidate/lib/validators'
 export default {
-  name: 'CreateCourseStepOne'
+  name: 'CreateCourseStepOne',
+  data: () => ({
+    form: {
+      title: ''
+    }
+  }),
+  computed: {
+    isValid() {
+      return !this.$v.$invalid
+    }
+  },
+  validations: {
+    form: {
+      title: {
+        required
+      }
+    }
+  },
+  methods: {
+    emitFormData() {
+      this.$emit('updateStep', { data: this.form, isValid: this.isValid })
+    }
+  }
 }
 </script>

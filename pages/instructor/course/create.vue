@@ -8,7 +8,7 @@
       <div class="course-create full-page-takeover-container">
         <div class="container">
           <keep-alive>
-            <component :is="activeComponent" />
+            <component :is="activeComponent" @updateStep="mergeFormData" />
           </keep-alive>
         </div>
         <div class="full-page-footer-row">
@@ -21,7 +21,12 @@
             </div>
             <div class="full-page-footer-col">
               <div>
-                <button v-if="!isLastStep" @click.prevent="nextStep" class="button is-large float-right">
+                <button
+                  :disabled="!canProceed"
+                  v-if="!isLastStep"
+                  @click.prevent="nextStep"
+                  class="button is-large float-right"
+                >
                   Continue
                 </button>
                 <button v-else @click="() => {}" class="button is-success is-large float-right">
@@ -45,7 +50,12 @@ export default {
   components: { InstructorHeader, CreateCourseStepTwo, CreateCourseStepOne },
   data: () => ({
     activeStep: 1,
-    steps: ['CreateCourseStepOne', 'CreateCourseStepTwo']
+    steps: ['CreateCourseStepOne', 'CreateCourseStepTwo'],
+    canProceed: false,
+    form: {
+      title: '',
+      category: ''
+    }
   }),
   computed: {
     stepsLength() {
@@ -72,6 +82,10 @@ export default {
     prevStep() {
       if (this.activeStep === 1) return
       this.activeStep--
+    },
+    mergeFormData({ data, isValid }) {
+      this.form = { ...this.form, ...data }
+      this.canProceed = isValid
     }
   }
 }
