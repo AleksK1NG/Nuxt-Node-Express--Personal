@@ -1,5 +1,6 @@
 export const SET_COURSES = 'SET_COURSES'
 export const SET_COURSE = 'SET_COURSE'
+export const SET_CATEGORIES = 'SET_CATEGORIES'
 
 export const SET_USER = 'SET_USER'
 
