@@ -6,22 +6,17 @@
     <h2 class="course-create-subtitle">
       No worries, you can change title later.
     </h2>
-    <form @input="emitFormData" class="course-create-form">
+    <form class="course-create-form">
       <div class="course-create-form-group">
         <div class="field course-create-form-field control has-icons-right">
-          <input
-              :maxLength="50"
-              type="text"
-              placeholder="e.g. Amazing Course in Flutter!"
-              class="input is-large"
-          />
+          <input :maxLength="50" type="text" placeholder="e.g. Amazing Course in Flutter!" class="input is-large" />
         </div>
       </div>
     </form>
   </div>
 </template>
 <script>
-  export default {
-    name: 'CreateCourseStepOne'
-  }
+export default {
+  name: 'CreateCourseStepOne'
+}
 </script>

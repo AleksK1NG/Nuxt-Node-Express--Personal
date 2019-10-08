@@ -7,8 +7,9 @@
       </div>
       <div class="course-create full-page-takeover-container">
         <div class="container">
-          <CreateCourseStepOne v-if="activeStep === 1" />
-          <CreateCourseStepTwo v-if="activeStep === 2" />
+          <keep-alive>
+            <component :is="activeComponent" />
+          </keep-alive>
         </div>
         <div class="full-page-footer-row">
           <div class="container">
@@ -44,7 +45,7 @@ export default {
   components: { InstructorHeader, CreateCourseStepTwo, CreateCourseStepOne },
   data: () => ({
     activeStep: 1,
-    steps: ['CourseCreateStep1', 'CourseCreateStep2']
+    steps: ['CreateCourseStepOne', 'CreateCourseStepTwo']
   }),
   computed: {
     stepsLength() {
@@ -58,6 +59,9 @@ export default {
     },
     progress() {
       return `${(100 / this.stepsLength) * this.activeStep}%`
+    },
+    activeComponent() {
+      return this.steps[this.activeStep - 1]
     }
   },
   methods: {
