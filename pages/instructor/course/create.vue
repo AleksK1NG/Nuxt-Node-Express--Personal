@@ -29,7 +29,7 @@
                 >
                   Continue
                 </button>
-                <button v-else @click="() => {}" class="button is-success is-large float-right">
+                <button :disabled="!canProceed" v-else @click="() => {}" class="button is-success is-large float-right">
                   Confirm
                 </button>
               </div>
@@ -72,6 +72,9 @@ export default {
     },
     activeComponent() {
       return this.steps[this.activeStep - 1]
+    },
+    categories() {
+      return this.$store.state.category.categories
     }
   },
   methods: {
@@ -89,7 +92,7 @@ export default {
     }
   },
   fetch({ store }) {
-    store.dispatch('category/fetchCategories')
+    return store.dispatch('category/fetchCategories')
   }
 }
 </script>
