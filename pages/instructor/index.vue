@@ -30,7 +30,6 @@ import InstructorHeader from '../../components/shared/Header'
 export default {
   name: 'instructor',
   components: { InstructorHeader },
-  middleware: 'admin',
   layout: 'instructor'
 }
 </script>
