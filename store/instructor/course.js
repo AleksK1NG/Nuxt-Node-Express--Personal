@@ -9,7 +9,6 @@ export const store = () => ({
 export const actions = {
   async fetchInstructorCourses({ commit }) {
     commit(SET_LOADING, true)
-
     try {
       const courses = await this.$axios.$get('/api/v1/products/user-products')
       commit(SET_COURSES, courses)
