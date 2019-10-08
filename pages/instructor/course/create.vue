@@ -120,7 +120,6 @@ export default {
     margin-top: 21px;
     margin-bottom: 10.5px;
     font-size: 36px;
-    font-weight: 300;
   }
   &-subtitle {
     font-size: 24px;
@@ -137,6 +136,12 @@ export default {
     }
     &-field {
       min-width: 552px;
+    }
+    .select {
+      width: 100%;
+      > select {
+        width: 100%;
+      }
     }
   }
 }
