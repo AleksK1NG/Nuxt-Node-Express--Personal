@@ -6,6 +6,7 @@
           <button @click="() => {}" class="button is-primary is-inverted is-medium is-outlined">
             Save
           </button>
+          <span v-if="course">{{ course.title }}</span>
         </div>
       </template>
     </Header>
@@ -51,7 +52,7 @@
           </div>
           <div class="column">
             <keep-alive>
-              <component :is="activeComponent" />
+              <component :course="course" :is="activeComponent" />
             </keep-alive>
           </div>
         </div>
@@ -67,6 +68,7 @@ import Status from '../../../../components/insctructor/Status'
 import Price from '../../../../components/insctructor/Price'
 import TargetStudents from '../../../../components/insctructor/TargetStudents'
 import MultiComponentMixin from '../../../../mixins/MultiComponentMixin'
+import { mapState } from 'vuex'
 export default {
   name: 'manage',
   layout: 'instructor',
@@ -75,10 +77,13 @@ export default {
     steps: ['TargetStudents', 'LandingPage', 'Price', 'Status'],
     activeStep: 1
   }),
+  fetch({ store, params }) {
+    return store.dispatch('instructor/course/fetchCourseById', params.id)
+  },
   computed: {
-    activeComponent() {
-      return this.steps[this.activeStep - 1]
-    }
+    ...mapState({
+      course: ({ instructor }) => instructor.course.course
+    })
   },
   mixins: [MultiComponentMixin],
   methods: {

@@ -2,7 +2,6 @@ import { SET_COURSES, SET_ERROR, SET_LOADING } from '~/store/constants'
 
 export const state = () => ({
   courses: [],
-  course: {},
   isLoading: false,
   error: null
 })
