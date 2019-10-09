@@ -66,7 +66,7 @@ import LandingPage from '../../../../components/insctructor/LandingPage'
 import Status from '../../../../components/insctructor/Status'
 import Price from '../../../../components/insctructor/Price'
 import TargetStudents from '../../../../components/insctructor/TargetStudents'
-
+import MultiComponentMixin from '../../../../mixins/MultiComponentMixin'
 export default {
   name: 'manage',
   layout: 'instructor',
@@ -80,6 +80,7 @@ export default {
       return this.steps[this.activeStep - 1]
     }
   },
+  mixins: [MultiComponentMixin],
   methods: {
     navigateTo(step) {
       this.activeStep = step
