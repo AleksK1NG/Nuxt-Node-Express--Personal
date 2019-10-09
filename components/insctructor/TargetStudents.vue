@@ -5,8 +5,8 @@
     </header>
     <div class="card-content card-section">
       <form>
-        <MultiLineTextInput label="What will students learn" />
-        <MultiLineTextInput label="What are the requirements" />
+        <MultiLineTextInput :lines="course.wsl" label="What will students learn" />
+        <MultiLineTextInput :lines="course.requirements" label="What are the requirements" />
       </form>
     </div>
   </div>
@@ -17,6 +17,12 @@ import MultiLineTextInput from '../form/MultiLineTextInput'
 
 export default {
   name: 'TargetStudents',
-  components: { MultiLineTextInput, Header }
+  components: { MultiLineTextInput, Header },
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>

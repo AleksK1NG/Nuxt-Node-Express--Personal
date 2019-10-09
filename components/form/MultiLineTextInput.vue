@@ -1,22 +1,23 @@
 <template>
   <div>
-    <!-- Send a label through props -->
     <label class="label">{{ label }}</label>
-    <!-- Iterate lines here -->
-    <div class="multi-field field">
+    <div v-for="(line, index) in lines" :key="line.value" class="multi-field field">
       <div class="control multi-control">
         <div class="multi-input-container">
-          <input class="input is-medium multi-input" type="text" :placeholder="'Add Something Nice (:'" />
+          <input
+            :value="line.value"
+            placeholder="Add Something Nice (:"
+            class="input is-medium multi-input"
+            type="text"
+          />
         </div>
         <div class="btn-container">
-          <!-- Delete the line -->
           <button @click.prevent="() => {}" type="button" class="button is-danger multi-button">
             Delete
           </button>
         </div>
       </div>
     </div>
-    <!-- Add the Line -->
     <button @click="() => {}" type="button" class="m-b-sm button is-medium is-link is-outlined">
       Add an answer
     </button>
@@ -29,6 +30,10 @@ export default {
   props: {
     label: {
       type: String,
+      required: true
+    },
+    lines: {
+      type: Array,
       required: true
     }
   }
