@@ -17,11 +17,12 @@
         <div class="columns">
           <div class="column is-8 is-offset-2">
             <h1 class="courses-page-title">Your Courses</h1>
-            <!-- Iterate Courses -->
             <div v-for="course in courses" :key="course._id" class="tile is-ancestor">
               <div class="tile is-parent is-12">
-                <!-- Navigate to course manage page -->
-                <nuxt-link :to="'#'" class="tile tile-overlay-container is-child box">
+                <nuxt-link
+                  :to="`/instructor/course/${course._id}/manage`"
+                  class="tile tile-overlay-container is-child box"
+                >
                   <div class="tile-overlay">
                     <span class="tile-overlay-text">
                       Update Course
