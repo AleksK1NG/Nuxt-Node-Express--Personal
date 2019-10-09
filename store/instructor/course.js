@@ -1,6 +1,6 @@
-import { SET_COURSES, SET_ERROR, SET_LOADING } from '~/store/constants'
+import { ADD_COURSE, SET_COURSES, SET_ERROR, SET_LOADING } from '~/store/constants'
 
-export const store = () => ({
+export const state = () => ({
   courses: [],
   isLoading: false,
   error: null
@@ -21,11 +21,31 @@ export const actions = {
       commit(SET_LOADING, false)
       return error
     }
+  },
+
+  async createCourse({ commit }, courseData) {
+    commit(SET_LOADING, true)
+
+    try {
+      const course = await this.$axios.$post('/api/v1/products', courseData)
+
+      commit(ADD_COURSE, course)
+      commit(SET_LOADING, false)
+      commit(SET_ERROR, null)
+
+      return true
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
   }
 }
 export const mutations = {
   [SET_COURSES]: (state, courses) => (state.courses = courses),
   [SET_LOADING]: (state, loading) => (state.isLoading = loading),
-  [SET_ERROR]: (state, error) => (state.error = error)
+  [SET_ERROR]: (state, error) => (state.error = error),
+  [ADD_COURSE]: (state, newCourse) => state.courses.push(newCourse)
 }
 export const getters = {}
