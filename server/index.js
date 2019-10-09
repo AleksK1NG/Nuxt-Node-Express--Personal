@@ -7,7 +7,7 @@ const keys = require('./keys')
 const config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
-async function start() {
+const start = async () => {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
   const { host, port } = nuxt.options.server

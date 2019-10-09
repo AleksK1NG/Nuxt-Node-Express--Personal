@@ -6,7 +6,6 @@
           <button @click="() => {}" class="button is-primary is-inverted is-medium is-outlined">
             Save
           </button>
-          <span v-if="course">{{ course.title }}</span>
         </div>
       </template>
     </Header>

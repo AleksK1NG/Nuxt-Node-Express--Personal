@@ -1,6 +1,6 @@
 const Category = require('../models/category')
 
-exports.getCategories = function(req, res) {
+exports.getCategories = (req, res) => {
   Category.find({}).exec((errors, categories) => {
     if (errors) {
       return res.status(422).send(errors)

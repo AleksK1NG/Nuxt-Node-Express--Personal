@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const passport = require('passport')
 
-exports.getCurrentUser = function(req, res, next) {
+exports.getCurrentUser = (req, res, next) => {
   const user = req.user
 
   if (!user) {
@@ -11,7 +11,7 @@ exports.getCurrentUser = function(req, res, next) {
   return res.json(user)
 }
 
-exports.register = function(req, res) {
+exports.register = (req, res) => {
   const registerData = req.body
 
   if (!registerData.email) {
@@ -52,7 +52,7 @@ exports.register = function(req, res) {
   })
 }
 
-exports.login = function(req, res, next) {
+exports.login = (req, res, next) => {
   const { email, password } = req.body
 
   if (!email) {
@@ -79,7 +79,7 @@ exports.login = function(req, res, next) {
     }
 
     if (passportUser) {
-      req.login(passportUser, function(err) {
+      req.login(passportUser, (err) => {
         if (err) {
           next(err)
         }
@@ -96,7 +96,7 @@ exports.login = function(req, res, next) {
   })(req, res, next)
 }
 
-exports.logout = function(req, res) {
+exports.logout = (req, res) => {
   req.logout()
   return res.json({ status: 'Session destroyed!' })
 }

@@ -4,12 +4,12 @@ const User = require('../models/user')
 const keys = require('../keys')
 
 // Only For Session Authentication !
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user.id)
 })
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+passport.deserializeUser((id, done) => {
+  User.findById(id, (err, user) => {
     done(err, user)
   })
 })
@@ -21,7 +21,7 @@ passport.use(
       passwordField: 'password'
     },
     (email, password, done) => {
-      User.findOne({ email }, function(err, user) {
+      User.findOne({ email }, (err, user) => {
         if (err) {
           return done(err)
         }
@@ -29,7 +29,7 @@ passport.use(
           return done(null, false)
         }
 
-        user.comparePassword(password, function(err, isMatch) {
+        user.comparePassword(password, (err, isMatch) => {
           if (err) {
             return done(err)
           }

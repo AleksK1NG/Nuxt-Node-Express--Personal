@@ -9,7 +9,7 @@ require('../models/category')
 require('../models/product-hero')
 require('../models/blog')
 
-exports.initSessionStore = function() {
+exports.initSessionStore = () => {
   const store = new MongoDBStore({
     uri: keys.DB_URI,
     collection: 'eincodeSessions'
@@ -20,9 +20,8 @@ exports.initSessionStore = function() {
   return store
 }
 
-exports.connect = function() {
-  return mongoose
+exports.connect = () =>
+  mongoose
     .connect(keys.DB_URI, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected !!! '))
     .catch((err) => console.log(err))
-}

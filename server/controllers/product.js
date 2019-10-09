@@ -1,7 +1,7 @@
 const Product = require('../models/product')
 const slugify = require('slugify')
 
-exports.getProducts = function(req, res) {
+exports.getProducts = (req, res) => {
   Product.find({ status: 'published' })
     .populate('author -_id -password -products -email -role')
     .populate('category')
@@ -15,7 +15,7 @@ exports.getProducts = function(req, res) {
     })
 }
 
-exports.getInstructorProducts = function(req, res) {
+exports.getInstructorProducts = (req, res) => {
   const userId = req.user.id
 
   Product.find({ author: userId })
@@ -59,7 +59,7 @@ exports.getProductBySlug = (req, res) => {
 }
 
 // Needs recheck
-exports.createProduct = function(req, res) {
+exports.createProduct = (req, res) => {
   const productData = req.body
   const user = req.user
   const product = new Product(productData)
@@ -74,7 +74,7 @@ exports.createProduct = function(req, res) {
   })
 }
 
-exports.updateProduct = function(req, res) {
+exports.updateProduct = (req, res) => {
   const productId = req.params.id
   const productData = req.body
 
