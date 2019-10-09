@@ -16,11 +16,11 @@ export const actions = {
       commit(SET_LOADING, false)
       commit(SET_ERROR, null)
       return courses
-    } catch (err) {
-      console.error(err)
-      commit(SET_ERROR, err)
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
       commit(SET_LOADING, false)
-      return err
+      return error
     }
   }
 }
