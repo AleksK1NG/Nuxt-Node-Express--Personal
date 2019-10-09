@@ -1,12 +1,17 @@
 <template>
-  <input
-    @input="($event) => $emit('input', $event.target.value)"
-    @blur="v.$touch()"
-    :maxLength="maxLength"
-    type="text"
-    placeholder="e.g. Amazing Course in Flutter!"
-    class="input is-large"
-  />
+  <div>
+    <input
+      @input="emitInputValue"
+      @blur="v.$touch()"
+      :maxLength="maxLength"
+      type="text"
+      placeholder="e.g. Amazing Course in Flutter!"
+      class="input is-large"
+    />
+    <span class="icon is-small is-right">
+      {{ remainingLength }}
+    </span>
+  </div>
 </template>
 
 <script>
@@ -21,6 +26,29 @@ export default {
     v: {
       type: Object,
       required: true
+    }
+  },
+  data: () => ({
+    currentValue: ''
+  }),
+  computed: {
+    inputLength() {
+      return this.currentValue.length || ''
+    },
+    remainingLength() {
+      if (this.inputLength > 0 && this.inputLength < this.maxLength) {
+        return this.maxLength - this.inputLength
+      } else if (this.inputLength === 0) {
+        return this.maxLength
+      } else {
+        return 0
+      }
+    }
+  },
+  methods: {
+    emitInputValue($event) {
+      this.currentValue = $event.target.value
+      this.$emit('input', $event.target.value)
     }
   }
 }
