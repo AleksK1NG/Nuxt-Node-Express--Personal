@@ -1,6 +1,6 @@
 const passport = require('passport')
 
-exports.onlyAuthUser = function(req, res, next) {
+exports.onlyAuthUser = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next()
   }
@@ -8,7 +8,7 @@ exports.onlyAuthUser = function(req, res, next) {
   return res.status(401).send({ errors: { auth: 'Not Authenticated!' } })
 }
 
-exports.onlyAdmin = function(req, res, next) {
+exports.onlyAdmin = (req, res, next) => {
   const user = req.user
 
   if (user && user['role'] === 'admin') {

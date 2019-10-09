@@ -1,7 +1,7 @@
 const ProductHero = require('../models/product-hero')
 const passport = require('passport')
 
-exports.getPageData = function(req, res, next) {
+exports.getPageData = (req, res, next) => {
   const data = {}
   ProductHero.findOne()
     .sort({ createdAt: -1 })

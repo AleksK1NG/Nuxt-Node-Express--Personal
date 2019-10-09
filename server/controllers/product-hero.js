@@ -1,6 +1,6 @@
 const ProductHero = require('../models/product-hero')
 
-exports.createHero = function(req, res, next) {
+exports.createHero = (req, res, next) => {
   const productData = req.body
 
   const productHero = new ProductHero(productData)
@@ -15,11 +15,11 @@ exports.createHero = function(req, res, next) {
   })
 }
 
-exports.getProductHeroes = function(req, res, next) {
+exports.getProductHeroes = (req, res, next) => {
   ProductHero.find({})
     .populate('product')
     .sort({ createdAt: -1 })
-    .exec(function(errors, heroes) {
+    .exec((errors, heroes) => {
       if (errors) {
         return res.status(422).send(errors)
       }
@@ -28,12 +28,12 @@ exports.getProductHeroes = function(req, res, next) {
     })
 }
 
-exports.updateProductHeroes = function(req, res, next) {
+exports.updateProductHeroes = (req, res, next) => {
   const id = req.params.id
 
   ProductHero.findById(id)
     .populate('product')
-    .exec(function(errors, hero) {
+    .exec((errors, hero) => {
       if (errors) {
         return res.status(422).send(errors)
       }

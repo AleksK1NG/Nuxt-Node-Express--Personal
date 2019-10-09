@@ -6,7 +6,7 @@ const lock = new AsyncLock()
 
 const MEDIUM_URL = 'https://medium.com/@filipjerga/latest?format=json&limit=20'
 
-function parseFilters(queries) {
+const parseFilters = (queries) => {
   const parsedQueries = {}
   if (queries.filter) {
     Object.keys(queries).forEach((qKey) => {
@@ -31,7 +31,7 @@ exports.getBlogs = (req, res) => {
     .populate('author -_id -password -products -email -role')
     .skip(skips)
     .limit(pageSize)
-    .exec(function(errors, publishedBlogs) {
+    .exec((errors, publishedBlogs) => {
       if (errors) {
         return res.status(422).send(errors)
       }
@@ -59,7 +59,7 @@ exports.getBlogBySlug = (req, res) => {
 
   Blog.findOne({ slug })
     .populate('author -_id -password -products -email -role')
-    .exec(function(errors, foundBlog) {
+    .exec((errors, foundBlog) => {
       if (errors) {
         return res.status(422).send(errors)
       }
@@ -83,7 +83,7 @@ exports.getBlogById = (req, res) => {
 exports.getUserBlogs = (req, res) => {
   const user = req.user
 
-  Blog.find({ author: user.id }, function(errors, userBlogs) {
+  Blog.find({ author: user.id }, (errors, userBlogs) => {
     if (errors) {
       return res.status(422).send(errors)
     }
@@ -96,7 +96,7 @@ exports.updateBlog = (req, res) => {
   const blogId = req.params.id
   const blogData = req.body
 
-  Blog.findById(blogId, function(errors, foundBlog) {
+  Blog.findById(blogId, (errors, foundBlog) => {
     if (errors) {
       return res.status(422).send(errors)
     }
@@ -111,7 +111,7 @@ exports.updateBlog = (req, res) => {
 
     foundBlog.set(blogData)
     foundBlog.updatedAt = new Date()
-    foundBlog.save(function(errors, foundBlog) {
+    foundBlog.save((errors, foundBlog) => {
       if (errors) {
         return res.status(422).send(errors)
       }
@@ -127,7 +127,7 @@ exports.createBlog = (req, res) => {
   if (!lock.isBusy(lockId)) {
     lock.acquire(
       lockId,
-      function(done) {
+      (done) => {
         const blogData = req.body
         const blog = new Blog(blogData)
         blog.author = req.user
@@ -142,7 +142,7 @@ exports.createBlog = (req, res) => {
           return res.json(createdBlog)
         })
       },
-      function(errors, ret) {
+      (errors, ret) => {
         errors && console.error(errors)
       }
     )
@@ -154,7 +154,7 @@ exports.createBlog = (req, res) => {
 exports.deleteBlog = (req, res) => {
   const blogId = req.params.id
 
-  Blog.deleteOne({ _id: blogId }, function(errors) {
+  Blog.deleteOne({ _id: blogId }, (errors) => {
     if (errors) {
       return res.status(422).send(errors)
     }
