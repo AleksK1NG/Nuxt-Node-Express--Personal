@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="manage-page">
     <Header title="Some very nice course name" exitLink="/instructor/courses">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
@@ -21,11 +21,11 @@
               <ul class="menu-list">
                 <li>
                   <!-- display TargetStudents -->
-                  <a @click.prevent="() => {}" :class="'active'">Target Your Students </a>
+                  <a @click.prevent="navigateTo(1)" :class="'active'">Target Your Students </a>
                 </li>
                 <li>
                   <!-- display LandingPage -->
-                  <a @click.prevent="() => {}">
+                  <a @click.prevent="navigateTo(2)">
                     Course Landing Page
                   </a>
                 </li>
@@ -36,13 +36,13 @@
               <ul class="menu-list">
                 <li>
                   <!-- display Price -->
-                  <a @click.prevent="() => {}">
+                  <a @click.prevent="navigateTo(3)">
                     Price
                   </a>
                 </li>
                 <li>
                   <!-- display Status -->
-                  <a @click.prevent="() => {}">
+                  <a @click.prevent="navigateTo(4)">
                     Status
                   </a>
                 </li>
@@ -50,13 +50,9 @@
             </aside>
           </div>
           <div class="column">
-            <TargetStudents />
-
-            <LandingPage />
-
-            <Price />
-
-            <Status />
+            <keep-alive>
+              <component :is="activeComponent" />
+            </keep-alive>
           </div>
         </div>
       </div>
@@ -74,33 +70,62 @@ import TargetStudents from '../../../../components/insctructor/TargetStudents'
 export default {
   name: 'manage',
   layout: 'instructor',
-  components: { TargetStudents, Price, Status, LandingPage, Header }
+  components: { TargetStudents, Price, Status, LandingPage, Header },
+  data: () => ({
+    steps: ['TargetStudents', 'LandingPage', 'Price', 'Status'],
+    activeStep: 1
+  }),
+  computed: {
+    activeComponent() {
+      return this.steps[this.activeStep - 1]
+    }
+  },
+  methods: {
+    navigateTo(step) {
+      this.activeStep = step
+    }
+  }
 }
 </script>
 
-<style scoped lang="scss">
-.label-info {
-  font-size: 13px;
-  color: gray;
-  font-style: italic;
-}
-.course-manage {
-  padding-top: 40px;
-  .menu {
-    padding-top: 30px;
-    &-label {
-      font-size: 20px;
-      color: black;
-    }
-    &-list {
-      > li {
-        font-size: 18px;
-        margin-top: 10px;
-        > a {
-          &.is-active {
-            background-color: transparent;
-            color: inherit;
+<style lang="scss">
+.manage-page {
+  .label-info {
+    font-size: 13px;
+    color: gray;
+    font-style: italic;
+  }
+  .course-manage {
+    padding-top: 40px;
+    .menu {
+      padding-top: 30px;
+      &-label {
+        font-size: 20px;
+        color: black;
+      }
+      &-list {
+        > li {
+          font-size: 18px;
+          margin-top: 10px;
+          > a {
+            &.is-active {
+              background-color: transparent;
+              color: inherit;
+            }
           }
+        }
+      }
+    }
+    .card {
+      &-section {
+        padding: 40px;
+      }
+      &-header {
+        &-title {
+          padding: 0;
+          color: #8f99a3;
+          font-weight: 400;
+          font-size: 25px;
         }
       }
     }
