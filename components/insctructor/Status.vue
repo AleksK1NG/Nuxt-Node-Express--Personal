@@ -7,7 +7,8 @@
       <div class="field">
         <label class="label">Status</label>
         <div class="select is-medium">
-          <select>
+          <select :value="course.status" @change="($event) => emitCourseValue($event, 'status')">
+            >
             <option value="default">Change Status</option>
             <option value="active">
               Active
@@ -22,10 +23,21 @@
   </div>
 </template>
 <script>
-  import Header from '~/components/shared/Header'
+import Header from '~/components/shared/Header'
 
-  export default {
-    name: 'Status',
-    components: { Header }
+export default {
+  name: 'Status',
+  components: { Header },
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    emitCourseValue(event, field) {
+      this.$emit('emitCourseValue', { value: event.target.value, field })
+    }
   }
+}
 </script>
