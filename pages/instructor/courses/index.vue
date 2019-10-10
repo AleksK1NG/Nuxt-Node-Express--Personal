@@ -30,7 +30,7 @@
                   </div>
                   <div class="columns">
                     <div class="column is-narrow">
-                      <figure class="image is-4by2 is-128x128">
+                      <figure class="image is-4by2 is-128x128 oh-fix">
                         <img :src="course.image || 'https://via.placeholder.com/150'" />
                       </figure>
                     </div>
@@ -82,6 +82,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.oh-fix {
+  overflow: hidden;
+}
 .tile-image {
   float: left;
 }
