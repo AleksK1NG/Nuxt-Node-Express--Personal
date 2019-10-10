@@ -5,6 +5,7 @@
       <div class="control multi-control">
         <div class="multi-input-container">
           <input
+            @input="emitUpdate($event, index)"
             :value="line.value"
             placeholder="Add Something Nice (:"
             class="input is-medium multi-input"
@@ -43,6 +44,10 @@ export default {
     },
     emitRemove(index) {
       this.$emit('emitRemove', index)
+    },
+    emitUpdate(event, index) {
+      const { value } = event.target
+      this.$emit('emitUpdate', { value, index })
     }
   }
 }
