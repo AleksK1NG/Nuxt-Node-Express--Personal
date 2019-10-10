@@ -12,13 +12,13 @@
           />
         </div>
         <div class="btn-container">
-          <button @click.prevent="() => {}" type="button" class="button is-danger multi-button">
+          <button @click.prevent="emitRemove(index)" type="button" class="button is-danger multi-button">
             Delete
           </button>
         </div>
       </div>
     </div>
-    <button @click="() => {}" type="button" class="m-b-sm button is-medium is-link is-outlined">
+    <button @click="emitAdd" type="button" class="m-b-sm button is-medium is-link is-outlined">
       Add an answer
     </button>
   </div>
@@ -35,6 +35,14 @@ export default {
     lines: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    emitAdd() {
+      this.$emit('emitAdd')
+    },
+    emitRemove(index) {
+      this.$emit('emitRemove', index)
     }
   }
 }

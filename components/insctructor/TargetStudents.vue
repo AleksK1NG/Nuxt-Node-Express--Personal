@@ -5,8 +5,18 @@
     </header>
     <div class="card-content card-section">
       <form>
-        <MultiLineTextInput :lines="course.wsl" label="What will students learn" />
-        <MultiLineTextInput :lines="course.requirements" label="What are the requirements" />
+        <MultiLineTextInput
+          @emitAdd="addLine('wsl')"
+          @emitRemove="removeLine($event, 'wsl')"
+          :lines="course.wsl"
+          label="What will students learn"
+        />
+        <MultiLineTextInput
+          @emitAdd="addLine('requirements')"
+          @emitRemove="removeLine($event, 'requirements')"
+          :lines="course.requirements"
+          label="What are the requirements"
+        />
       </form>
     </div>
   </div>
@@ -22,6 +32,16 @@ export default {
     course: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    addLine(field) {
+      console.log('addLine() => ', field)
+      // dispatch
+    },
+    removeLine(index, field) {
+      // dispatch
+      console.log('removeLine(index) => ', index, field)
     }
   }
 }
