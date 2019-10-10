@@ -116,7 +116,6 @@ export default {
   methods: {
     emitCourseValue(event, field) {
       this.$emit('emitCourseValue', { value: event.target.value, field })
-      console.log('emitCourseValue => ',  event.target.value, field)
     }
   }
 }
