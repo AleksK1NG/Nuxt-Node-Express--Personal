@@ -2,6 +2,7 @@ import {
   ADD_COURSE,
   ADD_COURSE_LINE,
   REMOVE_COURSE_LINE,
+  SET_CAN_UPDATE_COURSE,
   SET_COURSE,
   SET_COURSES,
   SET_ERROR,
@@ -14,7 +15,8 @@ export const state = () => ({
   courses: [],
   course: {},
   isLoading: false,
-  error: null
+  error: null,
+  canUpdateCourse: false
 })
 
 export const actions = {
@@ -82,12 +84,13 @@ export const actions = {
       commit(SET_COURSE, updatedCourse)
       commit(SET_LOADING, false)
       commit(SET_ERROR, null)
-
+      commit(SET_CAN_UPDATE_COURSE, false)
       return true
     } catch (error) {
       console.error(error)
       commit(SET_ERROR, error)
       commit(SET_LOADING, false)
+      commit(SET_CAN_UPDATE_COURSE, false)
       return error
     }
   }
@@ -95,12 +98,20 @@ export const actions = {
 export const mutations = {
   [ADD_COURSE_LINE]: (state, field) => state.course[field].push({ value: '' }),
   [REMOVE_COURSE_LINE]: (state, { field, index }) => state.course[field].splice(index, 1),
-  [UPDATE_COURSE_LINE]: (state, { index, value, field }) => (state.course[field][index].value = value),
-  [UPDATE_COURSE_VALUE]: (state, { value, field }) => (state.course[field] = value),
+  // [UPDATE_COURSE_LINE]: (state, { index, value, field }) => (state.course[field][index].value = value),
+  [UPDATE_COURSE_LINE]: (state, { index, value, field }) => {
+    state.course[field][index].value = value
+    state.canUpdateCourse = true
+  },
+  [UPDATE_COURSE_VALUE]: (state, { value, field }) => {
+    state.course[field] = value
+    state.canUpdateCourse = true
+  },
   [SET_COURSE]: (state, newCourse) => (state.course = newCourse),
   [SET_COURSES]: (state, courses) => (state.courses = courses),
   [SET_LOADING]: (state, loading) => (state.isLoading = loading),
   [SET_ERROR]: (state, error) => (state.error = error),
-  [ADD_COURSE]: (state, newCourse) => state.courses.push(newCourse)
+  [ADD_COURSE]: (state, newCourse) => state.courses.push(newCourse),
+  [SET_CAN_UPDATE_COURSE]: (state, payload) => (state.canUpdateCourse = payload)
 }
 export const getters = {}

@@ -3,7 +3,11 @@
     <Header title="Some very nice course name" exitLink="/instructor/courses">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <button @click="updateCourse" class="button is-primary is-inverted is-medium is-outlined">
+          <button
+            :disabled="!canUpdateCourse"
+            @click="updateCourse"
+            class="button is-primary is-inverted is-medium is-outlined"
+          >
             Save
           </button>
         </div>
@@ -87,7 +91,8 @@ export default {
   },
   computed: {
     ...mapState({
-      course: ({ instructor }) => instructor.course.course
+      course: ({ instructor }) => instructor.course.course,
+      canUpdateCourse: ({ instructor }) => instructor.course.canUpdateCourse
     })
   },
   mixins: [MultiComponentMixin],
