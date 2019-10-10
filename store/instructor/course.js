@@ -78,7 +78,7 @@ export const actions = {
 
     try {
       const updatedCourse = await this.$axios.$patch(`/api/v1/products/${course._id}`, course)
-      debugger
+
       commit(SET_COURSE, updatedCourse)
       commit(SET_LOADING, false)
       commit(SET_ERROR, null)
@@ -95,7 +95,7 @@ export const actions = {
 export const mutations = {
   [ADD_COURSE_LINE]: (state, field) => state.course[field].push({ value: '' }),
   [REMOVE_COURSE_LINE]: (state, { field, index }) => state.course[field].splice(index, 1),
-  [UPDATE_COURSE_LINE]: (state, { index, value, field }) => (state.course[field][index] = value),
+  [UPDATE_COURSE_LINE]: (state, { index, value, field }) => (state.course[field][index].value = value),
   [UPDATE_COURSE_VALUE]: (state, { value, field }) => (state.course[field] = value),
   [SET_COURSE]: (state, newCourse) => (state.course = newCourse),
   [SET_COURSES]: (state, courses) => (state.courses = courses),

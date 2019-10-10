@@ -57,7 +57,9 @@ export default {
   },
   methods: {
     emitAdd() {
-      this.canAddLine && this.$emit('emitAdd')
+      if (this.canAddLine || this.lines.length === 0) {
+        this.$emit('emitAdd')
+      }
     },
     emitRemove(index) {
       this.canDeleteLine && this.$emit('emitRemove', index)

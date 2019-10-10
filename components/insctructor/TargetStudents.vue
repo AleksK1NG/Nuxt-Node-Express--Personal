@@ -6,15 +6,15 @@
     <div class="card-content card-section">
       <form>
         <MultiLineTextInput
-          @emitUpdate="updateLine($event, 'wsl')"
           @emitAdd="addLine('wsl')"
+          @emitUpdate="updateLine($event, 'wsl')"
           @emitRemove="removeLine($event, 'wsl')"
           :lines="course.wsl"
           label="What will students learn"
         />
         <MultiLineTextInput
-          @emitUpdate="updateLine($event, 'requirements')"
           @emitAdd="addLine('requirements')"
+          @emitUpdate="updateLine($event, 'requirements')"
           @emitRemove="removeLine($event, 'requirements')"
           :lines="course.requirements"
           label="What are the requirements"
