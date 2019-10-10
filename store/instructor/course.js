@@ -69,6 +69,27 @@ export const actions = {
       commit(SET_LOADING, false)
       return error
     }
+  },
+
+  async updateCourse({ commit, state }) {
+    commit(SET_LOADING, true)
+
+    const course = state.course
+
+    try {
+      const updatedCourse = await this.$axios.$patch(`/api/v1/products/${course._id}`, course)
+      debugger
+      commit(SET_COURSE, updatedCourse)
+      commit(SET_LOADING, false)
+      commit(SET_ERROR, null)
+
+      return true
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
   }
 }
 export const mutations = {
