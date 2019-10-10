@@ -5,7 +5,9 @@ import {
   SET_COURSE,
   SET_COURSES,
   SET_ERROR,
-  SET_LOADING, UPDATE_COURSE_LINE
+  SET_LOADING,
+  UPDATE_COURSE_LINE,
+  UPDATE_COURSE_VALUE
 } from '~/store/constants'
 
 export const state = () => ({
@@ -73,6 +75,7 @@ export const mutations = {
   [ADD_COURSE_LINE]: (state, field) => state.course[field].push({ value: '' }),
   [REMOVE_COURSE_LINE]: (state, { field, index }) => state.course[field].splice(index, 1),
   [UPDATE_COURSE_LINE]: (state, { index, value, field }) => (state.course[field][index] = value),
+  [UPDATE_COURSE_VALUE]: (state, { value, field }) => (state.course[field] = value),
   [SET_COURSE]: (state, newCourse) => (state.course = newCourse),
   [SET_COURSES]: (state, courses) => (state.courses = courses),
   [SET_LOADING]: (state, loading) => (state.isLoading = loading),

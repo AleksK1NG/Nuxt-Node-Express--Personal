@@ -51,7 +51,7 @@
           </div>
           <div class="column">
             <keep-alive>
-              <component :course="course" :is="activeComponent" />
+              <component @emitCourseValue="handleCourseUpdate" :course="course" :is="activeComponent" />
             </keep-alive>
           </div>
         </div>
@@ -68,6 +68,7 @@ import Price from '../../../../components/insctructor/Price'
 import TargetStudents from '../../../../components/insctructor/TargetStudents'
 import MultiComponentMixin from '../../../../mixins/MultiComponentMixin'
 import { mapState } from 'vuex'
+import { UPDATE_COURSE_VALUE } from '../../../../store/constants'
 export default {
   name: 'manage',
   layout: 'instructor',
@@ -91,6 +92,10 @@ export default {
     },
     activeComponentClass(step) {
       return this.activeStep === step ? 'is-active' : ''
+    },
+    handleCourseUpdate({ value, field }) {
+      // this.$store.dispatch('instructor/course/updateCourseValue', {value, field})
+      this.$store.commit(`instructor/course/${UPDATE_COURSE_VALUE}`, { field, value })
     }
   }
 }
