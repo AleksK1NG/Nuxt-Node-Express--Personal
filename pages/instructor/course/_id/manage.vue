@@ -3,7 +3,7 @@
     <Header title="Some very nice course name" exitLink="/instructor/courses">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <button @click="() => {}" class="button is-primary is-inverted is-medium is-outlined">
+          <button @click="updateCourse" class="button is-primary is-inverted is-medium is-outlined">
             Save
           </button>
         </div>
@@ -92,6 +92,15 @@ export default {
   },
   mixins: [MultiComponentMixin],
   methods: {
+    updateCourse() {
+      this.$store
+        .dispatch('instructor/course/updateCourse')
+        .then(() => {
+          this.$router.push('/instructor/courses')
+          this.$toasted.success('Course successfully updated', { duration: 3000, position: 'top-center' })
+        })
+        .catch(() => this.$toasted.error('Error', { duration: 3000, position: 'top-center' }))
+    },
     navigateTo(step) {
       this.activeStep = step
     },
