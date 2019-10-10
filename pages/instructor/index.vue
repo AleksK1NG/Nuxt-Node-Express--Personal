@@ -30,7 +30,7 @@ import InstructorHeader from '../../components/shared/Header'
 export default {
   name: 'instructor',
   components: { InstructorHeader },
-  layout: 'instructor'
+  layout: 'instructor',
 }
 </script>
 
