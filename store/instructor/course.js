@@ -1,4 +1,12 @@
-import { ADD_COURSE, SET_COURSE, SET_COURSES, SET_ERROR, SET_LOADING } from '~/store/constants'
+import {
+  ADD_COURSE,
+  ADD_COURSE_LINE,
+  REMOVE_COURSE_LINE,
+  SET_COURSE,
+  SET_COURSES,
+  SET_ERROR,
+  SET_LOADING, UPDATE_COURSE_LINE
+} from '~/store/constants'
 
 export const state = () => ({
   courses: [],
@@ -28,7 +36,6 @@ export const actions = {
     commit(SET_LOADING, true)
 
     try {
-
       const course = await this.$axios.$get(`/api/v1/products/${courseId}`)
       commit(SET_COURSE, course)
       commit(SET_LOADING, false)
@@ -63,6 +70,9 @@ export const actions = {
   }
 }
 export const mutations = {
+  [ADD_COURSE_LINE]: (state, field) => state.course[field].push({ value: '' }),
+  [REMOVE_COURSE_LINE]: (state, { field, index }) => state.course[field].splice(index, 1),
+  [UPDATE_COURSE_LINE]: (state, { index, value, field }) => (state.course[field][index] = value),
   [SET_COURSE]: (state, newCourse) => (state.course = newCourse),
   [SET_COURSES]: (state, courses) => (state.courses = courses),
   [SET_LOADING]: (state, loading) => (state.isLoading = loading),

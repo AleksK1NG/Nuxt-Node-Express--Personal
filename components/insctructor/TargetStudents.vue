@@ -6,12 +6,14 @@
     <div class="card-content card-section">
       <form>
         <MultiLineTextInput
+          @emitUpdate="updateLine($event, 'wsl')"
           @emitAdd="addLine('wsl')"
           @emitRemove="removeLine($event, 'wsl')"
           :lines="course.wsl"
           label="What will students learn"
         />
         <MultiLineTextInput
+          @emitUpdate="updateLine($event, 'requirements')"
           @emitAdd="addLine('requirements')"
           @emitRemove="removeLine($event, 'requirements')"
           :lines="course.requirements"
@@ -24,6 +26,7 @@
 <script>
 import Header from '~/components/shared/Header'
 import MultiLineTextInput from '../form/MultiLineTextInput'
+import { ADD_COURSE_LINE, REMOVE_COURSE_LINE, UPDATE_COURSE_LINE } from '../../store/constants'
 
 export default {
   name: 'TargetStudents',
@@ -36,12 +39,13 @@ export default {
   },
   methods: {
     addLine(field) {
-      console.log('addLine() => ', field)
-      // dispatch
+      this.$store.commit(`instructor/course/${ADD_COURSE_LINE}`, field)
     },
     removeLine(index, field) {
-      // dispatch
-      console.log('removeLine(index) => ', index, field)
+      this.$store.commit(`instructor/course/${REMOVE_COURSE_LINE}`, { field, index })
+    },
+    updateLine({ value, index }, field) {
+      this.$store.commit(`instructor/course/${UPDATE_COURSE_LINE}`, { field, value, index })
     }
   }
 }
