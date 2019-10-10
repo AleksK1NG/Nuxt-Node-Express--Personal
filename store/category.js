@@ -24,7 +24,6 @@ export const actions = {
       commit(SET_CATEGORIES, categories)
       commit(SET_LOADING, false)
       commit(SET_ERROR, null)
-
       return categories
     } catch (error) {
       console.error(error)
