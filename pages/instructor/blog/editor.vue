@@ -3,8 +3,7 @@
     <Header title="Write your Blogs" exitLink="/instructor/blogs" />
     <div class="blog-editor-container">
       <div class="container">
-        Editor
-        <!-- Editor Component here! -->
+        <EditorComponent />
       </div>
     </div>
   </div>
@@ -12,10 +11,12 @@
 
 <script>
 import Header from '~/components/shared/Header'
+import EditorComponent from '../../../components/editor/index'
 export default {
-  name: 'editor',
+  name: 'editorPage',
   layout: 'instructor',
   components: {
+    EditorComponent,
     Header
   }
 }
