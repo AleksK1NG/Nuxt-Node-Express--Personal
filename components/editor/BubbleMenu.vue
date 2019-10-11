@@ -6,19 +6,19 @@
       :style="`left: ${menu.left}px; bottom: ${menu.bottom}px;`"
     >
       <button class="menububble__button" :class="{ 'is-active': isActive.bold() }" @click="commands.bold()">
-        bold
+        <Icon name="bold" size="small" />
       </button>
       <button class="menububble__button" :class="{ 'is-active': isActive.italic() }" @click="commands.italic()">
-        italic
+        <Icon name="italic" size="small" />
       </button>
       <button class="menububble__button" :class="{ 'is-active': isActive.code() }" @click="commands.code()">
-        code
+        <Icon name="code" size="small" />
       </button>
       <button class="menububble__button" :class="{ 'is-active': isActive.strike() }" @click="commands.strike()">
-        strike
+        <Icon name="strikethrough" size="small" />
       </button>
       <button class="menububble__button" :class="{ 'is-active': isActive.underline() }" @click="commands.underline()">
-        underline
+        <Icon name="underline" size="small" />
       </button>
       <button
         class="menububble__button"
@@ -49,9 +49,11 @@
 
 <script>
 import { EditorMenuBubble } from 'tiptap'
+import Icon from '../shared/Icon'
 export default {
   name: 'BubbleMenu',
   components: {
+    Icon,
     EditorMenuBubble
   },
   props: {
