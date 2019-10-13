@@ -1,5 +1,9 @@
-@import "./variables";
-@import "./bulma";
-@import "./spacing";
+@import './variables';
+@import './bulma';
+@import './spacing';
 @import './instructor_header';
-@import "./editor/index";
+@import './editor/index';
+
+.blog-editor-container {
+  padding-top: 60px;
+}
