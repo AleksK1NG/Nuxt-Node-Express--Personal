@@ -7,6 +7,7 @@
         <div class="full-page-takeover-header-button">
           <!-- TODO: Check blog validity before publishing -->
           <Modal
+            @opened="checkBlogValidity"
             openTitle="Publish"
             openBtnClass="button is-success is-medium is-inverted is-outlined"
             title="Review Details"
@@ -14,7 +15,7 @@
             <div>
               <div class="title">Once you publish blog you cannot change url to a blog.</div>
               <!-- Check for error -->
-              <div>
+              <div v-if="!publishError">
                 <div class="subtitle">Current Url is:</div>
                 <article class="message is-success">
                   <div class="message-body">
@@ -23,11 +24,11 @@
                   </div>
                 </article>
               </div>
-              <!-- <article class="message is-danger">
+              <article v-else class="message is-danger">
                 <div class="message-body">
-                  Display error here
+                  {{ publishError }}
                 </div>
-              </article> -->
+              </article>
             </div>
           </Modal>
         </div>
@@ -66,10 +67,13 @@ export default {
     Header,
     Modal
   },
+  data: () => ({
+    publishError: ''
+  }),
   computed: {
     ...mapState({
       blog: (store) => store.instructor.blog.blog,
-      isSaving: (store) => store.instructor.blog.isLoading,
+      isSaving: (store) => store.instructor.blog.isLoading
     })
   },
   async fetch({ store, params }) {
@@ -89,6 +93,15 @@ export default {
           this.$toasted.success('Blog Updated!', { duration: 3000, position: 'top-center' })
         })
         .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
+    },
+    checkBlogValidity() {
+      const title = this.$refs.editor.getNodeValueByName('title')
+      this.publishError = ''
+      if (title && title.length > 24) {
+        // create slug from title
+      } else {
+        this.publishError = 'Cannot publish! Title needs to be longer than 24 characters!'
+      }
     }
   }
 }
