@@ -47,7 +47,7 @@
     </Header>
     <div class="blog-editor-container">
       <div class="container">
-        <editor @editorMounted="initBlogContent" @editorUpdated="updateBlog" />
+        <editor @editorMounted="initBlogContent" @editorUpdated="updateBlog" :isSaving="isSaving" />
       </div>
     </div>
   </div>
@@ -68,7 +68,8 @@ export default {
   },
   computed: {
     ...mapState({
-      blog: (store) => store.instructor.blog.blog
+      blog: (store) => store.instructor.blog.blog,
+      isSaving: (store) => store.instructor.blog.isLoading,
     })
   },
   async fetch({ store, params }) {
@@ -84,7 +85,7 @@ export default {
       this.$store
         .dispatch('instructor/blog/updateBlog', { data: blogData, id: this.blog._id })
         .then(() => {
-          this.$router.push(`/instructor/blogs`)
+          // this.$router.push(`/instructor/blogs`)
           this.$toasted.success('Blog Updated!', { duration: 3000, position: 'top-center' })
         })
         .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))

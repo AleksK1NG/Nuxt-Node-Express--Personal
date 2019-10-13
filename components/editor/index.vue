@@ -2,7 +2,7 @@
   <div class="editor editor-squished">
     <BasicMenu :editor="editor">
       <template #saveButton>
-        <button @click="emitUpdate" class="button is-success button-save">
+        <button :disabled="isSaving" @click="emitUpdate" class="button is-success button-save">
           Save
         </button>
       </template>
@@ -45,6 +45,12 @@ export default {
     BubbleMenu,
     EditorContent
   },
+  props: {
+    isSaving: {
+      required: false,
+      default: false
+    }
+  },
   data() {
     return {
       editor: null
@@ -59,7 +65,7 @@ export default {
         new Subtitle(),
         new Placeholder({
           showOnlyCurrent: false,
-          emptyNodeText: node => {
+          emptyNodeText: (node) => {
             if (node.type.name === 'title') {
               return 'Inspirational Title'
             }
@@ -69,7 +75,7 @@ export default {
             return 'Write your story...'
           }
         }),
-        new Heading({ levels: [1, 2, 3]}),
+        new Heading({ levels: [1, 2, 3] }),
         new Bold(),
         new Code(),
         new Italic(),
@@ -84,7 +90,7 @@ export default {
         new CodeBlockHighlight({
           languages: {
             javascript,
-            css,
+            css
           }
         })
       ]
@@ -118,14 +124,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .button-save {
-    float: right;
-    background-color: #23d160;
-    &:hover {
-      background-color: #2bc76c;
-    }
-    &:disabled {
-      cursor: not-allowed;
-    }
+.button-save {
+  float: right;
+  background-color: #23d160;
+  &:hover {
+    background-color: #2bc76c;
   }
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
 </style>
