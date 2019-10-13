@@ -3,7 +3,7 @@
     <Header title="Write your Blogs" exitLink="/instructor/blogs" />
     <div class="blog-editor-container">
       <div class="container">
-        <EditorComponent />
+        <EditorComponent @editorUpdated="saveBlog" />
       </div>
     </div>
   </div>
@@ -18,6 +18,11 @@ export default {
   components: {
     EditorComponent,
     Header
+  },
+  methods: {
+    saveBlog({ content, title, subtitle }) {
+      // store dispatch
+    }
   }
 }
 </script>
