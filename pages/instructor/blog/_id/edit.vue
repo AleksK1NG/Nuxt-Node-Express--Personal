@@ -48,7 +48,7 @@
     </Header>
     <div class="blog-editor-container">
       <div class="container">
-        <editor @editorMounted="initBlogContent" @editorUpdated="updateBlog" :isSaving="isSaving" />
+        <editor ref="editor" @editorMounted="initBlogContent" @editorUpdated="updateBlog" :isSaving="isSaving" />
       </div>
     </div>
   </div>
@@ -69,7 +69,8 @@ export default {
     Modal
   },
   data: () => ({
-    publishError: ''
+    publishError: '',
+    slug: ''
   }),
   computed: {
     ...mapState({
@@ -98,8 +99,9 @@ export default {
     checkBlogValidity() {
       const title = this.$refs.editor.getNodeValueByName('title')
       this.publishError = ''
+      this.slug = ''
       if (title && title.length > 24) {
-        // create slug from title
+        this.slug = this.slugify(title)
       } else {
         this.publishError = 'Cannot publish! Title needs to be longer than 24 characters!'
       }
