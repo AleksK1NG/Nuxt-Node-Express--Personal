@@ -20,8 +20,14 @@ export default {
     Header
   },
   methods: {
-    saveBlog({ content, title, subtitle }) {
-      // store dispatch
+    saveBlog(blogData) {
+      this.$store
+        .dispatch('instructor/blog/createBlog', blogData)
+        .then((blog) => {
+          this.$router.push(`/instructor/blog/${blog._id}/edit`)
+          this.$toasted.success('Blog created', { duration: 3000, position: 'top-center' })
+        })
+        .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
     }
   }
 }
