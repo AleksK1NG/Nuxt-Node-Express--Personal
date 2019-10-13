@@ -31,5 +31,23 @@ export const actions = {
       commit(SET_LOADING, false)
       return error
     }
+  },
+
+  async fetchBlogById({ commit }, blogId) {
+    commit(SET_LOADING, true)
+
+    try {
+      const blog = await this.$axios.$get(`/api/v1/blogs/${blogId}`)
+
+      commit(SET_BLOG, blog)
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      return blog
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
   }
 }

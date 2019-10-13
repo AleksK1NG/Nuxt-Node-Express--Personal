@@ -59,7 +59,7 @@ export default {
         new Subtitle(),
         new Placeholder({
           showOnlyCurrent: false,
-          emptyNodeText: (node) => {
+          emptyNodeText: node => {
             if (node.type.name === 'title') {
               return 'Inspirational Title'
             }
@@ -69,7 +69,7 @@ export default {
             return 'Write your story...'
           }
         }),
-        new Heading({ levels: [1, 2, 3] }),
+        new Heading({ levels: [1, 2, 3]}),
         new Bold(),
         new Code(),
         new Italic(),
@@ -84,11 +84,13 @@ export default {
         new CodeBlockHighlight({
           languages: {
             javascript,
-            css
+            css,
           }
         })
       ]
     })
+    // this.$emit('editorMounted', this.editor)
+    this.$emit('editorMounted', this.setInitialContent)
   },
   beforeDestroy() {
     // Always destroy your editor instance when it's no longer needed
@@ -107,6 +109,9 @@ export default {
       const node = nodes.find((n) => n.type.name === name)
       if (!node) return ''
       return node.textContent
+    },
+    setInitialContent(content) {
+      this.editor.setContent(content)
     }
   }
 }
