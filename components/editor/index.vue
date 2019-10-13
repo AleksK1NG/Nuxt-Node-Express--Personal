@@ -109,6 +109,12 @@ export default {
       const subtitle = this.getNodeValueByName('subtitle')
       this.$emit('editorUpdated', { content: html, title, subtitle })
     },
+    getContent() {
+      const html = this.editor.getHTML()
+      const title = this.getNodeValueByName('title')
+      const subtitle = this.getNodeValueByName('subtitle')
+      return { content: html, title, subtitle }
+    },
     getNodeValueByName(name) {
       const docContent = this.editor.state.doc.content
       const nodes = docContent.content
