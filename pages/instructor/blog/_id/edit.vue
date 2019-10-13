@@ -7,6 +7,7 @@
         <div class="full-page-takeover-header-button">
           <!-- TODO: Check blog validity before publishing -->
           <Modal
+            @submitted="publishBlog"
             @opened="checkBlogValidity"
             openTitle="Publish"
             openBtnClass="button is-success is-medium is-inverted is-outlined"
@@ -76,7 +77,10 @@ export default {
     ...mapState({
       blog: (store) => store.instructor.blog.blog,
       isSaving: (store) => store.instructor.blog.isLoading
-    })
+    }),
+    editor() {
+      return this.$refs.editor
+    }
   },
   async fetch({ store, params }) {
     await store.dispatch('instructor/blog/fetchBlogById', params.id)
@@ -96,8 +100,12 @@ export default {
         })
         .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
     },
+    publishBlog({ closeModal }) {
+      const blogContent = this.editor.getContent()
+      debugger
+    },
     checkBlogValidity() {
-      const title = this.$refs.editor.getNodeValueByName('title')
+      const title = this.editor.getNodeValueByName('title')
       this.publishError = ''
       this.slug = ''
       if (title && title.length > 24) {
