@@ -47,7 +47,7 @@
     </Header>
     <div class="blog-editor-container">
       <div class="container">
-        <editor @editorMounted="initBlogContent" />
+        <editor @editorMounted="initBlogContent" @editorUpdated="updateBlog" />
       </div>
     </div>
   </div>
@@ -76,10 +76,18 @@ export default {
   },
   methods: {
     initBlogContent(initContent) {
-      debugger
       if (this.blog && this.blog.content) {
         initContent(this.blog.content)
       }
+    },
+    updateBlog(blogData) {
+      this.$store
+        .dispatch('instructor/blog/updateBlog', { data: blogData, id: this.blog._id })
+        .then(() => {
+          this.$router.push(`/instructor/blogs`)
+          this.$toasted.success('Blog Updated!', { duration: 3000, position: 'top-center' })
+        })
+        .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
     }
   }
 }
