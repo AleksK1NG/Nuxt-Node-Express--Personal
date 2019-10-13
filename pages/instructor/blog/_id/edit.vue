@@ -7,7 +7,7 @@
         <div class="full-page-takeover-header-button">
           <!-- TODO: Check blog validity before publishing -->
           <Modal
-            @submitted="publishBlog"
+            @submitted="updateBlogStatus($event, 'published')"
             @opened="checkBlogValidity"
             openTitle="Publish"
             openBtnClass="button is-success is-medium is-inverted is-outlined"
@@ -37,6 +37,7 @@
       <template v-else #actionMenu>
         <div class="full-page-takeover-header-button">
           <Modal
+            @submitted="updateBlogStatus($event, 'active')"
             openTitle="Unpublish"
             openBtnClass="button is-success is-medium is-inverted is-outlined"
             title="Unpublish Blog"
@@ -103,14 +104,16 @@ export default {
           .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
       }
     },
-    publishBlog({ closeModal }) {
+    updateBlogStatus({ closeModal }, status) {
       const blogContent = this.editor.getContent()
-      blogContent.status = 'published'
+      blogContent.status = status
+
+      const message = status === 'published' ? 'Blog has been published!' : 'Blog has been un-published!'
 
       this.$store
         .dispatch('instructor/blog/updateBlog', { data: blogContent, id: this.blog._id })
         .then(() => {
-          this.$toasted.success('Blog has been published !', { duration: 3000, position: 'top-center' })
+          this.$toasted.success(message, { duration: 3000, position: 'top-center' })
           closeModal()
         })
         .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
