@@ -1,4 +1,5 @@
 import { SET_BLOG, SET_ERROR, SET_LOADING, SET_USER_BLOGS } from '~/store/constants'
+import { separateBlogs } from '~/helpers/separateBlogsHelper'
 
 export const state = () => ({
   userBlogs: {
@@ -42,12 +43,16 @@ export const actions = {
     commit(SET_LOADING, true)
 
     try {
-      const blogs = this.$axios.$get('/api/v1/blogs/me')
-
-      commit(SET_BLOG, blog)
+      const blogs = await this.$axios.$get('/api/v1/blogs/me')
+      // separate blogs by status
+      const { published, drafts } = separateBlogs(blogs)
+      // set user blogs by field name
+      commit(SET_USER_BLOGS, { field: 'published', items: published })
+      commit(SET_USER_BLOGS, { field: 'drafts', items: drafts })
+      debugger
       commit(SET_ERROR, null)
       commit(SET_LOADING, false)
-      return blog
+      return { published, drafts }
     } catch (error) {
       console.error(error)
       commit(SET_ERROR, error)
