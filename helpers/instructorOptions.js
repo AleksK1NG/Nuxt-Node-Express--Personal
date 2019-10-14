@@ -1,5 +1,5 @@
 // Commands
-const commands = {
+export const commands = {
   DELETE_BLOG: 'DELETE_BLOG',
   EDIT_BLOG: 'EDIT_BLOG'
 }
