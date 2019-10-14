@@ -2,18 +2,20 @@
   <div class="blog-editor-container">
     <div class="container">
       <div class="blog-section-user">
-        <UserTile :name="blog.author.name" :avatar="blog.author.avatar" :date="blog.createdAt | formatDate" />
+        <user-tile :name="blog.author.name" :avatar="blog.author.avatar" :date="blog.createdAt | formatDate" />
       </div>
-      <div class="blog-content" v-html="blog.content"></div>
+      <EditorView :initialContent="blog.content" />
     </div>
   </div>
 </template>
 
 <script>
 import UserTile from '~/components/shared/UserTile'
+import EditorView from '../../components/editor/EditorView'
 export default {
   name: 'SlugPage',
   components: {
+    EditorView,
     UserTile
   },
   computed: {
