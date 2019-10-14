@@ -24,11 +24,9 @@
               </p>
               <ul class="menu-list">
                 <li>
-                  <!-- display TargetStudents -->
                   <a :class="activeComponentClass(1)" @click.prevent="navigateTo(1)">Target Your Students </a>
                 </li>
                 <li>
-                  <!-- display LandingPage -->
                   <a :class="activeComponentClass(2)" @click.prevent="navigateTo(2)">
                     Course Landing Page
                   </a>
@@ -39,13 +37,11 @@
               </p>
               <ul class="menu-list">
                 <li>
-                  <!-- display Price -->
                   <a :class="activeComponentClass(3)" @click.prevent="navigateTo(3)">
                     Price
                   </a>
                 </li>
                 <li>
-                  <!-- display Status -->
                   <a :class="activeComponentClass(4)" @click.prevent="navigateTo(4)">
                     Status
                   </a>

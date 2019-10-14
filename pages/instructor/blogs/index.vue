@@ -12,53 +12,39 @@
           </div>
           <div class="tabs">
             <ul>
-              <!-- set here active tab -->
               <li @click="activeTab = 0">
                 <a :class="{ 'is-active': activeTab === 0 }">Drafts</a>
               </li>
-              <!-- set here active tab -->
               <li @click="activeTab = 1">
                 <a :class="{ 'is-active': activeTab === 1 }">Published</a>
               </li>
             </ul>
           </div>
           <div class="blogs-container">
-            <!-- Draft Blogs -->
-            <!-- check for active tab -->
             <template v-if="activeTab === 0">
               <div v-if="drafts && drafts.length > 0">
-                <!-- make iteration here for drafts -->
                 <div v-for="dBlog in drafts" :key="dBlog._id" class="blog-card">
-                  <h2>{{ dBlog.title }}</h2>
+                  <h2>{{ displayBlogTitle(dBlog) }}</h2>
                   <div class="blog-card-footer">
                     <span> Last Edited {{ dBlog.updatedAt | formatDate('LLLL') }} </span>
-                    <!-- Dropdown with menu here -->
                     <Dropdown @optionChanged="handleOption($event, dBlog)" :items="draftsOptions" />
                   </div>
                 </div>
               </div>
-              <!-- In case of no drafts blogs  -->
               <div v-else class="blog-error">
                 No Drafts :(
               </div>
             </template>
-            <!-- Published Blogs -->
-            <!-- check for active tab -->
             <template v-if="activeTab === 1">
               <div v-if="published && published.length > 0">
-                <!-- make iteration here for published -->
                 <div v-for="pBlog in published" :key="pBlog._id" class="blog-card">
-                  <!-- title -->
-                  <h2>{{ pBlog.title }}</h2>
+                  <h2>{{ displayBlogTitle(pBlog) }}</h2>
                   <div class="blog-card-footer">
-                    <!-- updatedAt -->
                     <span> Last Edited {{ pBlog.updatedAt | formatDate('LLLL') }} </span>
-                    <!-- Dropdown with menu here -->
                     <Dropdown @optionChanged="handleOption($event, pBlog)" :items="publishedOptions" />
                   </div>
                 </div>
               </div>
-              <!-- In case of no drafts blogs  -->
               <div v-else class="blog-error">
                 No Published Blogs :(
               </div>
@@ -112,6 +98,9 @@ export default {
           })
           .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
       }
+    },
+    displayBlogTitle(blog) {
+      return blog.title || blog.subtitle || 'Blog without title & subtitle :('
     }
   },
   async fetch({ store }) {
