@@ -33,7 +33,7 @@
                   <div class="blog-card-footer">
                     <span> Last Edited {{ dBlog.updatedAt | formatDate('LLLL') }} </span>
                     <!-- Dropdown with menu here -->
-                    <Dropdown @optionChanged="handleOption($event, dBlog._id)" :items="draftsOptions" />
+                    <Dropdown @optionChanged="handleOption($event, dBlog)" :items="draftsOptions" />
                   </div>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                     <!-- updatedAt -->
                     <span> Last Edited {{ pBlog.updatedAt | formatDate('LLLL') }} </span>
                     <!-- Dropdown with menu here -->
-                    <Dropdown @optionChanged="handleOption($event, pBlog._id)" :items="publishedOptions" />
+                    <Dropdown @optionChanged="handleOption($event, pBlog)" :items="publishedOptions" />
                   </div>
                 </div>
               </div>
@@ -94,13 +94,23 @@ export default {
     }
   },
   methods: {
-    handleOption(command, blogId) {
-      debugger
+    handleOption(command, blog) {
       if (command === commands.EDIT_BLOG) {
-        this.$router.push(`/instructor/blog/${blogId}/edit`)
+        this.$router.push(`/instructor/blog/${blog._id}/edit`)
       }
       if (command === commands.DELETE_BLOG) {
-        alert('Deleting Blog')
+        this.displayDeleteWarning(blog)
+      }
+    },
+    displayDeleteWarning(blog) {
+      const isConfirm = confirm('Are you sure you want to delete blog ?')
+      if (isConfirm) {
+        this.$store
+          .dispatch('instructor/blog/deleteBlog', blog)
+          .then(() => {
+            this.$toasted.success('Blog Successfully deleted !', { duration: 3000, position: 'top-center' })
+          })
+          .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
       }
     }
   },
