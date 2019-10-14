@@ -40,6 +40,11 @@ export const actions = {
     }
   },
 
+  async updatePublishedBlog({ commit }, blog) {
+    debugger
+  },
+
+
   async fetchUserBlogs({ commit }) {
     commit(SET_LOADING, true)
 

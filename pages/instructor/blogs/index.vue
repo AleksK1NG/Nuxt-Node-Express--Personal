@@ -27,7 +27,7 @@
                   <h2>{{ displayBlogTitle(dBlog) }}</h2>
                   <div class="blog-card-footer">
                     <span> Last Edited {{ dBlog.updatedAt | formatDate('LLLL') }} </span>
-                    <Dropdown @optionChanged="handleOption($event, dBlog)" :items="draftsOptions" />
+                    <dropdown @optionChanged="handleOption($event, dBlog)" :items="draftsOptions" />
                   </div>
                 </div>
               </div>
@@ -41,7 +41,7 @@
                   <h2>{{ displayBlogTitle(pBlog) }}</h2>
                   <div class="blog-card-footer">
                     <span> Last Edited {{ pBlog.updatedAt | formatDate('LLLL') }} </span>
-                    <Dropdown @optionChanged="handleOption($event, pBlog)" :items="publishedOptions" />
+                    <dropdown @optionChanged="handleOption($event, pBlog)" :items="publishedOptions(pBlog.featured)" />
                   </div>
                 </div>
               </div>
@@ -72,9 +72,6 @@ export default {
       published: ({ instructor }) => instructor.blog.userBlogs.published,
       drafts: ({ instructor }) => instructor.blog.userBlogs.drafts
     }),
-    publishedOptions() {
-      return createPublishedOptions()
-    },
     draftsOptions() {
       return createDraftsOptions()
     }
@@ -87,16 +84,22 @@ export default {
       if (command === commands.DELETE_BLOG) {
         this.displayDeleteWarning(blog)
       }
+      if (command === commands.TOGGLE_FEATURE) {
+        this.updateBlog(blog)
+      }
+    },
+    updateBlog(blog) {
+      this.$store.dispatch('instructor/blog/updatePublishedBlog', blog)
+    },
+    publishedOptions(isFeatured) {
+      return createPublishedOptions(isFeatured)
     },
     displayDeleteWarning(blog) {
       const isConfirm = confirm('Are you sure you want to delete blog ?')
       if (isConfirm) {
         this.$store
           .dispatch('instructor/blog/deleteBlog', blog)
-          .then(() => {
-            this.$toasted.success('Blog Successfully deleted !', { duration: 3000, position: 'top-center' })
-          })
-          .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
+          .then((_) => this.$toasted.success('Blog was succesfuly deleted!', { duration: 2000 }))
       }
     },
     displayBlogTitle(blog) {
