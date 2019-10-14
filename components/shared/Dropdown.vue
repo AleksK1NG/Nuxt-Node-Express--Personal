@@ -19,15 +19,18 @@
 </template>
 <script>
 export default {
+  name: 'DropDown',
   props: {
     items: {
       type: Array,
       required: true
     }
   },
-  data: () => ({
-    isActive: false
-  }),
+  data() {
+    return {
+      isActive: false
+    }
+  },
   methods: {
     emitOption(optionIndex) {
       this.$emit('optionChanged', this.items[optionIndex])
