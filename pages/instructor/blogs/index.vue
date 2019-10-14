@@ -89,7 +89,10 @@ export default {
       }
     },
     updateBlog(blog) {
-      this.$store.dispatch('instructor/blog/updatePublishedBlog', blog)
+      const featured = !blog.featured
+      const featureStatus = featured ? 'Featured' : 'Un-Featured'
+
+      this.$store.dispatch('instructor/blog/updatePublishedBlog', { id: blog._id, data: { featured } })
     },
     publishedOptions(isFeatured) {
       return createPublishedOptions(isFeatured)
@@ -99,7 +102,10 @@ export default {
       if (isConfirm) {
         this.$store
           .dispatch('instructor/blog/deleteBlog', blog)
-          .then((_) => this.$toasted.success('Blog was succesfuly deleted!', { duration: 2000 }))
+          .then(() => {
+            this.$toasted.success('Blog successfully deleted !', { duration: 3000, position: 'top-center' })
+          })
+          .catch(() => this.$toasted.error('Wrong email or password', { duration: 3000, position: 'top-center' }))
       }
     },
     displayBlogTitle(blog) {

@@ -1,4 +1,5 @@
-import { DELETE_BLOG, SET_BLOG, SET_ERROR, SET_LOADING, SET_USER_BLOGS } from '~/store/constants'
+import Vue from 'vue'
+import { DELETE_BLOG, SET_BLOG, SET_ERROR, SET_LOADING, SET_PUBLISHED_BLOG, SET_USER_BLOGS } from '~/store/constants'
 import { separateBlogs } from '~/helpers/separateBlogsHelper'
 
 export const state = () => ({
@@ -18,7 +19,8 @@ export const mutations = {
   [SET_LOADING]: (state, loading) => (state.isLoading = loading),
   [SET_ERROR]: (state, error) => (state.error = error),
   [SET_USER_BLOGS]: (state, { field, items }) => (state.userBlogs[field] = items),
-  [DELETE_BLOG]: (state, { field, index }) => state.userBlogs[field].splice(index, 1)
+  [DELETE_BLOG]: (state, { field, index }) => state.userBlogs[field].splice(index, 1),
+  [SET_PUBLISHED_BLOG]: (state, { index, blog }) => Vue.set(state.userBlogs.published, index, blog)
 }
 
 export const actions = {
@@ -40,10 +42,26 @@ export const actions = {
     }
   },
 
-  async updatePublishedBlog({ commit }, blog) {
-    debugger
-  },
+  async updatePublishedBlog({ commit }, { id, data }) {
+    commit(SET_LOADING, true)
 
+    try {
+      const blog = await this.$axios.$patch(`/api/v1/blogs/${id}`, data)
+
+      const index = state.userBlogs['published'].findIndex((b) => b._id === id)
+
+      commit(SET_PUBLISHED_BLOG, { index, blog })
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      debugger
+      return blog
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
+  },
 
   async fetchUserBlogs({ commit }) {
     commit(SET_LOADING, true)
