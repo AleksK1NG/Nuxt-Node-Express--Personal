@@ -1,11 +1,8 @@
 <template>
-  <!-- Finish handling of URL -->
   <div>
     <Header title="Write your blog" exitLink="/instructor/blogs">
-      <!-- TODO: Check if blog status is active -->
       <template v-if="blog.status === 'active'" #actionMenu>
         <div class="full-page-takeover-header-button">
-          <!-- TODO: Check blog validity before publishing -->
           <Modal
             @submitted="updateBlogStatus($event, 'published')"
             @opened="checkBlogValidity"
@@ -15,12 +12,10 @@
           >
             <div>
               <div class="title">Once you publish blog you cannot change url to a blog.</div>
-              <!-- Check for error -->
               <div v-if="!publishError">
                 <div class="subtitle">Current Url is:</div>
                 <article class="message is-success">
                   <div class="message-body">
-                    <!-- Get here actual slug -->
                     <strong>{{ getCurrentUrl() }}/blogs/{{ slug }}</strong>
                   </div>
                 </article>
