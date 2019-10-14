@@ -1,6 +1,7 @@
-import { SET_ERROR, SET_LOADING, SET_USER_BLOGS } from '~/store/constants'
+import { SET_BLOG, SET_ERROR, SET_LOADING, SET_USER_BLOGS } from '~/store/constants'
 
 export const state = () => ({
+  blog: {},
   blogItems: {
     all: [],
     featured: []
@@ -13,7 +14,8 @@ export const getters = {}
 export const mutations = {
   [SET_LOADING]: (state, loading) => (state.isLoading = loading),
   [SET_ERROR]: (state, error) => (state.error = error),
-  [SET_USER_BLOGS]: (state, { field, items }) => (state.blogItems[field] = items)
+  [SET_USER_BLOGS]: (state, { field, items }) => (state.blogItems[field] = items),
+  [SET_BLOG]: (state, blog) => (state.blog = blog)
 }
 export const actions = {
   async fetchAllBlogs({ commit }) {
@@ -26,6 +28,25 @@ export const actions = {
       commit(SET_ERROR, null)
       commit(SET_LOADING, false)
       return blogs
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
+  },
+
+  async fetchBlogBySlug({ commit }, slug) {
+    commit(SET_LOADING, true)
+
+    try {
+      const blog = await this.$axios.$get(`/api/v1/blogs/s/${slug}`)
+
+      commit(SET_BLOG, blog)
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      debugger
+      return blog
     } catch (error) {
       console.error(error)
       commit(SET_ERROR, error)
