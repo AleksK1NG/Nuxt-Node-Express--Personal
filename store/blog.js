@@ -40,7 +40,7 @@ export const actions = {
   async fetchFeaturedBlogs({ commit }, filter) {
     commit(SET_LOADING, true)
 
-    const url = applyParamsToUrl('/api/v1/blogs', filter)
+    const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
 
     try {
       const { blogs } = await this.$axios.$get(url)
