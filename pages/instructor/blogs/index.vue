@@ -33,6 +33,7 @@
                   <div class="blog-card-footer">
                     <span> Last Edited {{ dBlog.updatedAt | formatDate('LLLL') }} </span>
                     <!-- Dropdown with menu here -->
+                    <Dropdown :items="draftsOptions" />
                   </div>
                 </div>
               </div>
@@ -53,6 +54,7 @@
                     <!-- updatedAt -->
                     <span> Last Edited {{ pBlog.updatedAt | formatDate('LLLL') }} </span>
                     <!-- Dropdown with menu here -->
+                    <Dropdown :items="publishedOptions" />
                   </div>
                 </div>
               </div>
@@ -70,9 +72,11 @@
 <script>
 import Header from '~/components/shared/Header'
 import { mapState } from 'vuex'
+import Dropdown from '../../../components/shared/Dropdown'
+import { createDraftsOptions, createPublishedOptions } from '../../../helpers/instructorOptions'
 export default {
   layout: 'instructor',
-  components: { Header },
+  components: { Dropdown, Header },
   name: 'blogsPage',
   data: () => ({
     activeTab: 0
@@ -81,7 +85,13 @@ export default {
     ...mapState({
       published: ({ instructor }) => instructor.blog.userBlogs.published,
       drafts: ({ instructor }) => instructor.blog.userBlogs.drafts
-    })
+    }),
+    publishedOptions() {
+      return createPublishedOptions()
+    },
+    draftsOptions() {
+      return createDraftsOptions()
+    }
   },
   async fetch({ store }) {
     await store.dispatch('instructor/blog/fetchUserBlogs')
