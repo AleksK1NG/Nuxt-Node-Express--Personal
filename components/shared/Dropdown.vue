@@ -10,7 +10,12 @@
     </div>
     <div class="dropdown-menu" id="dropdown-menu" role="menu">
       <div class="dropdown-content">
-        <a v-for="(item, index) in items" :key="item.name" @click.prevent="emitOption(index)" class="dropdown-item">
+        <a
+          v-for="(item, index) in items"
+          :key="item.name"
+          @click.prevent="emitOption(item.command)"
+          class="dropdown-item"
+        >
           {{ item.name }}
         </a>
       </div>
@@ -32,8 +37,8 @@ export default {
     }
   },
   methods: {
-    emitOption(optionIndex) {
-      this.$emit('optionChanged', this.items[optionIndex])
+    emitOption(command) {
+      this.$emit('optionChanged', command)
     }
   }
 }
