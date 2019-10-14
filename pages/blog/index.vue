@@ -3,32 +3,16 @@
     <div class="main-content">
       <div class="container">
         <div class="columns is-mobile">
-          <!-- posts -->
           <div class="column is-8">
-            <!-- blog -->
-            <div class="section">
+            <div v-for="blog in publishedBlogs" :key="blog._id" class="section">
               <div class="post">
-                <div @click="() => {}" class="post-header clickable">
-                  <h4 class="title is-4">Some Blog Title</h4>
-                  <h5 class="subtitle is-5">Some Blog Subtitle</h5>
+                <div @click="$router.push(`/blog/${blog.slug}`)" class="post-header clickable">
+                  <h4 class="title is-4">{{ blog.title }}</h4>
+                  <h5 class="subtitle is-5">{{ blog.subtitle }}</h5>
                 </div>
-                <div class="post-content">
-                  by Filip Jerga, Jul 1
-                </div>
+                <div class="post-content">by {{ blog.author.name }}, {{ blog.createdAt | formatDate }}</div>
               </div>
             </div>
-            <div class="section">
-              <div class="post">
-                <div @click="() => {}" class="post-header clickable">
-                  <h4 class="title is-4">Some Blog Title</h4>
-                  <h5 class="subtitle is-5">Some Blog Subtitle</h5>
-                </div>
-                <div class="post-content">
-                  by Filip Jerga, Jul 1
-                </div>
-              </div>
-            </div>
-            <!-- end of blog -->
             <!-- pagination -->
             <div class="section"></div>
             <!-- end of pagination -->
@@ -58,9 +42,15 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'blogPage',
-  async fetch({store}) {
+  computed: {
+    ...mapState({
+      publishedBlogs: (state) => state.blog.blogItems.all
+    })
+  },
+  async fetch({ store }) {
     await store.dispatch('blog/fetchAllBlogs')
   }
 }
