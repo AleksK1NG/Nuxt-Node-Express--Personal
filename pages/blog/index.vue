@@ -59,9 +59,13 @@
 </template>
 <script>
 export default {
-  name: 'blogPage'
+  name: 'blogPage',
+  async fetch({store}) {
+    await store.dispatch('blog/fetchAllBlogs')
+  }
 }
 </script>
+
 <style scoped>
 .post-content {
   font-style: italic;
