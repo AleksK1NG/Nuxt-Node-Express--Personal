@@ -42,7 +42,7 @@ export const actions = {
     }
   },
 
-  async updatePublishedBlog({ commit }, { id, data }) {
+  async updatePublishedBlog({ commit, state }, { id, data }) {
     commit(SET_LOADING, true)
 
     try {
@@ -53,7 +53,7 @@ export const actions = {
       commit(SET_PUBLISHED_BLOG, { index, blog })
       commit(SET_ERROR, null)
       commit(SET_LOADING, false)
-      debugger
+
       return blog
     } catch (error) {
       console.error(error)

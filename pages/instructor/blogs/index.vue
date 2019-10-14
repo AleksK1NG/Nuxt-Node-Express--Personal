@@ -37,7 +37,12 @@
             </template>
             <template v-if="activeTab === 1">
               <div v-if="published && published.length > 0">
-                <div v-for="pBlog in published" :key="pBlog._id" class="blog-card">
+                <div
+                  v-for="pBlog in published"
+                  :key="pBlog._id"
+                  :class="{ featured: pBlog.featured }"
+                  class="blog-card"
+                >
                   <h2>{{ displayBlogTitle(pBlog) }}</h2>
                   <div class="blog-card-footer">
                     <span> Last Edited {{ pBlog.updatedAt | formatDate('LLLL') }} </span>
@@ -92,7 +97,12 @@ export default {
       const featured = !blog.featured
       const featureStatus = featured ? 'Featured' : 'Un-Featured'
 
-      this.$store.dispatch('instructor/blog/updatePublishedBlog', { id: blog._id, data: { featured } })
+      this.$store
+        .dispatch('instructor/blog/updatePublishedBlog', { id: blog._id, data: { featured } })
+        .then(() => {
+          this.$toasted.success(`Blog has been ${featureStatus}!`, { duration: 3000, position: 'top-center' })
+        })
+        .catch(() => this.$toasted.error('Wrong email or password', { duration: 3000, position: 'top-center' }))
     },
     publishedOptions(isFeatured) {
       return createPublishedOptions(isFeatured)
@@ -137,7 +147,7 @@ export default {
     color: rgba(0, 0, 0, 0.54);
   }
   &.featured {
-    border-left: 5px solid #3cc314;
+    border-left: 8px solid #3cc314;
     padding-left: 10px;
     transition: border ease-out 0.2s;
   }
