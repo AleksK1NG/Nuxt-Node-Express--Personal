@@ -13,7 +13,18 @@
                 <div class="post-content">by {{ blog.author.name }}, {{ blog.createdAt | formatDate }}</div>
               </div>
             </div>
-            <div class="section"></div>
+            <div class="section">
+              <no-ssr placeholder="Loading...">
+                <paginate
+                  :page-count="5"
+                  :click-handler="handleClick"
+                  :prev-text="'Prev'"
+                  :next-text="'Next'"
+                  :container-class="'paginationContainer'"
+                >
+                </paginate>
+              </no-ssr>
+            </div>
           </div>
           <div class="column is-4 is-narrow">
             <div class="section">
@@ -45,6 +56,11 @@ export default {
       publishedBlogs: (state) => state.blog.blogItems.all,
       featuredBlogs: (state) => state.blog.blogItems.featured
     })
+  },
+  methods: {
+    handleClick() {
+      alert('Page Clicked!')
+    }
   },
   async fetch({ store }) {
     await store.dispatch('blog/fetchAllBlogs')
