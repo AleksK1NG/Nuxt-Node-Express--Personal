@@ -18,3 +18,4 @@ export const SET_ERROR = 'SET_ERROR'
 
 
 export const SET_BLOG = 'SET_BLOG'
+export const SET_USER_BLOGS = 'SET_USER_BLOGS'

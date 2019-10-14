@@ -117,8 +117,6 @@ export default {
           closeModal()
         })
         .catch(() => this.$toasted.error('Some error', { duration: 3000, position: 'top-center' }))
-
-      debugger
     },
     checkBlogValidity() {
       const title = this.editor.getNodeValueByName('title')
