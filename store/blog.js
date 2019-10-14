@@ -1,4 +1,5 @@
 import { SET_BLOG, SET_ERROR, SET_LOADING, SET_USER_BLOGS } from '~/store/constants'
+import { applyParamsToUrl } from '~/helpers/applyUrlParams'
 
 export const state = () => ({
   blog: {},
@@ -20,6 +21,26 @@ export const mutations = {
 export const actions = {
   async fetchAllBlogs({ commit }) {
     commit(SET_LOADING, true)
+
+    try {
+      const { blogs } = await this.$axios.$get('/api/v1/blogs')
+      // set user blogs by field name
+      commit(SET_USER_BLOGS, { field: 'all', items: blogs })
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      return blogs
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
+  },
+
+  async fetchFeaturedBlogs({ commit }, filter) {
+    commit(SET_LOADING, true)
+
+    const url = applyParamsToUrl('/api/v1/blogs', filter)
 
     try {
       const { blogs } = await this.$axios.$get('/api/v1/blogs')
