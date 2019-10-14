@@ -6,36 +6,31 @@
           <div class="column is-8">
             <div v-for="blog in publishedBlogs" :key="blog._id" class="section">
               <div class="post">
-                <div @click="$router.push(`/blog/${blog.slug}`)" class="post-header clickable">
+                <div @click="$router.push(`/blogs/${blog.slug}`)" class="post-header clickable">
                   <h4 class="title is-4">{{ blog.title }}</h4>
                   <h5 class="subtitle is-5">{{ blog.subtitle }}</h5>
                 </div>
                 <div class="post-content">by {{ blog.author.name }}, {{ blog.createdAt | formatDate }}</div>
               </div>
             </div>
-            <!-- pagination -->
             <div class="section"></div>
-            <!-- end of pagination -->
           </div>
-          <!-- side bar -->
           <div class="column is-4 is-narrow">
-            <!-- featured -->
             <div class="section">
               <div class="sidebar">
                 <div class="sidebar-header">
                   <h4 class="title is-4">Featured Posts</h4>
                 </div>
                 <div class="sidebar-list">
-                  <!-- Featured Blogs -->
-                  <p>
-                    <nuxt-link :to="``">Some favorite blog</nuxt-link>
+                  <p v-for="fBlog in featuredBlogs" :key="fBlog._id">
+                    <nuxt-link :to="`/blogs/${fBlog.slug}`">
+                      {{ fBlog.title }}
+                    </nuxt-link>
                   </p>
-                  <!-- Featured Blogs -->
                 </div>
               </div>
             </div>
           </div>
-          <!-- end of side bar -->
         </div>
       </div>
     </div>
@@ -47,7 +42,8 @@ export default {
   name: 'blogPage',
   computed: {
     ...mapState({
-      publishedBlogs: (state) => state.blog.blogItems.all
+      publishedBlogs: (state) => state.blog.blogItems.all,
+      featuredBlogs: (state) => state.blog.blogItems.featured
     })
   },
   async fetch({ store }) {
