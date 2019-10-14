@@ -49,7 +49,6 @@ export const actions = {
       // set user blogs by field name
       commit(SET_USER_BLOGS, { field: 'published', items: published })
       commit(SET_USER_BLOGS, { field: 'drafts', items: drafts })
-      debugger
       commit(SET_ERROR, null)
       commit(SET_LOADING, false)
       return { published, drafts }

@@ -12,12 +12,18 @@
           </div>
           <div class="tabs">
             <ul>
-              <li><a>Drafts</a></li>
-              <li><a>Published</a></li>
+              <li @click="activeTab = 0">
+                <a :class="{ 'is-active': activeTab === 0 }">Drafts</a>
+              </li>
+              <li @click="activeTab = 1">
+                <a :class="{ 'is-active': activeTab === 1 }">Published</a>
+              </li>
             </ul>
           </div>
           <div class="blogs-container">
-            <template>
+            <!-- Draft Blogs -->
+            <!-- check for active tab -->
+            <template v-if="activeTab === 0">
               <div>
                 <div class="blog-card">
                   <h2>Some Title</h2>
@@ -43,6 +49,34 @@
                 No Drafts :(
               </div> -->
             </template>
+            <!-- Published Blogs -->
+            <!-- check for active tab -->
+            <template v-if="activeTab === 1">
+              <div>
+                <div class="blog-card">
+                  <h2>Published Blog</h2>
+                  <div class="blog-card-footer">
+                    <span>
+                      Last Edited 17th December, 2018
+                    </span>
+                    <!-- Dropdown with menu here -->
+                  </div>
+                </div>
+                <div class="blog-card">
+                  <h2>Published Blog</h2>
+                  <div class="blog-card-footer">
+                    <span>
+                      Last Edited 17th December, 2018
+                    </span>
+                    <!-- Dropdown with menu here -->
+                  </div>
+                </div>
+              </div>
+              <!-- In case of no drafts blogs  -->
+              <!-- <div class="blog-error">
+                No Drafts :(
+              </div> -->
+            </template>
           </div>
         </div>
       </div>
@@ -54,11 +88,21 @@ import Header from '~/components/shared/Header'
 export default {
   layout: 'instructor',
   components: { Header },
-  name: 'blogsPage'
+  name: 'blogsPage',
+  data: () => ({
+    activeTab: 0
+  }),
+  async fetch({ store }) {
+    await store.dispatch('instructor/blog/fetchUserBlogs')
+  }
 }
 </script>
 
 <style scoped lang="scss">
+.is-active {
+  border-bottom-color: #363636;
+  color: #363636;
+}
 .blog-error {
   font-size: 35px;
 }
