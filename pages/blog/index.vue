@@ -77,20 +77,32 @@ export default {
       }
     }
   },
+
   methods: {
+    setQueryPaginationParams() {
+      const { pageSize, pageNum } = this.pagination
+      this.$router.push({ query: { pageNum, pageSize } })
+    },
     fetchBlogs() {
       const filter = {}
       filter.pageNum = this.pagination.pageNum
       filter.pageSize = this.pagination.pageSize
 
-      this.$store.dispatch('blog/fetchAllBlogs', filter)
-
+      this.$store.dispatch('blog/fetchAllBlogs', filter).then(() => this.setQueryPaginationParams())
     }
   },
-  async fetch({ store }) {
+  async fetch({ store, query }) {
     const filter = {}
-    filter.pageNum = 1
-    filter.pageSize = 2
+    const { pageSize, pageNum } = query
+
+    if (pageNum && pageSize) {
+      filter.pageNum = parseInt(pageNum, 10)
+      filter.pageSize = parseInt(pageSize, 10)
+      store.commit(`blog/${SET_BLOG_CURRENT_PAGE}`, filter.pageNum)
+    } else {
+      filter.pageNum = 1
+      filter.pageSize = 2
+    }
 
     await store.dispatch('blog/fetchAllBlogs', filter)
     await store.dispatch('blog/fetchFeaturedBlogs', { 'filter[featured]': true })
