@@ -62,6 +62,9 @@ import { mapState } from 'vuex'
 import { SET_BLOG_CURRENT_PAGE } from '../../store/constants'
 export default {
   name: 'blogPage',
+  head: {
+    title: 'Amazing tech blogs | Alex Bryksin'
+  },
   computed: {
     ...mapState({
       publishedBlogs: (state) => state.blog.blogItems.all,

@@ -42,6 +42,12 @@ import ProductHero from '../../components/hero/ProductHero'
 import ProductHeroCard from '../../components/hero/ProductHeroCard'
 export default {
   name: 'CoursesPage',
+  head() {
+    return {
+      title: this.course.title,
+      meta: [{ hid: 'description', name: 'description', content: this.course.subtitle }]
+    }
+  },
   components: { ProductHeroCard, ProductHero },
   computed: {
     course() {
