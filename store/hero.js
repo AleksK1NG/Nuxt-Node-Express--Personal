@@ -31,5 +31,23 @@ export const actions = {
       commit(SET_LOADING, false)
       return error
     }
+  },
+
+  async fetchHero({ commit }) {
+    commit(SET_LOADING, true)
+
+    try {
+      const { productHero } = await this.$axios.$get('/api/v1')
+      debugger
+      commit(SET_HERO, productHero)
+      commit(SET_ERROR, null)
+      commit(SET_LOADING, false)
+      return productHero
+    } catch (error) {
+      console.error(error)
+      commit(SET_ERROR, error)
+      commit(SET_LOADING, false)
+      return error
+    }
   }
 }
