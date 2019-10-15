@@ -17,7 +17,7 @@
             </div>
             <!-- end of blog -->
             <!-- pagination -->
-            <div class="section">
+            <div v-if="pagination.pageCount && pagination.pageCount > 1" class="section">
               <no-ssr>
                 <paginate
                   v-model="currentPage"
@@ -101,7 +101,7 @@ export default {
       store.commit(`blog/${SET_BLOG_CURRENT_PAGE}`, filter.pageNum)
     } else {
       filter.pageNum = 1
-      filter.pageSize = 2
+      filter.pageSize = 6
     }
 
     await store.dispatch('blog/fetchAllBlogs', filter)
