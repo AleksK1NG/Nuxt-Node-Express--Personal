@@ -1,6 +1,6 @@
 <template>
   <div class="full-page-takeover-header">
-    <div class="full-page-takeover-header-logo">
+    <div class="full-page-takeover-header-logo pointer" @click="() => $router.push('/')">
       <p class="full-page-takeover-header-logo-title">Promo Yourself</p>
     </div>
     <div class="full-page-takeover-header-divider"></div>
@@ -43,6 +43,9 @@ export default {
 }
 </script>
 <style scoped>
+.pointer {
+  cursor: pointer;
+}
 .user-box {
   align-items: center;
   display: flex;
