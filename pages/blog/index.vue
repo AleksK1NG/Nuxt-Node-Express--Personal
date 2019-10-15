@@ -8,7 +8,7 @@
             <!-- blog -->
             <div v-for="blog in publishedBlogs" :key="blog._id" class="section">
               <div class="post">
-                <div @click="$router.push(`/blogs/${blog.slug}`)" class="post-header clickable">
+                <div @click="$router.push(`/blog/${blog.slug}`)" class="post-header clickable">
                   <h4 class="title is-4">{{ blog.title }}</h4>
                   <h5 class="subtitle is-5">{{ blog.subtitle }}</h5>
                 </div>
@@ -18,7 +18,7 @@
             <!-- end of blog -->
             <!-- pagination -->
             <div v-if="pagination.pageCount && pagination.pageCount > 1" class="section">
-              <no-ssr placeholder="Loading...">
+              <client-only placeholder="Loading...">
                 <paginate
                   v-model="currentPage"
                   :page-count="pagination.pageCount"
@@ -27,7 +27,7 @@
                   :next-text="'Next ->'"
                   :container-class="'paginationContainer'"
                 />
-              </no-ssr>
+              </client-only>
             </div>
             <!-- end of pagination -->
           </div>
@@ -42,7 +42,7 @@
                 <div class="sidebar-list">
                   <!-- Featured Blogs -->
                   <p v-for="fBlog in featuredBlogs" :key="fBlog._id">
-                    <nuxt-link :to="`/blogs/${fBlog.slug}`">
+                    <nuxt-link :to="`/blog/${fBlog.slug}`">
                       {{ fBlog.title }}
                     </nuxt-link>
                   </p>

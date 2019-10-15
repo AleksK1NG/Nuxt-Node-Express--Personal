@@ -15,7 +15,7 @@
       </div>
     </div>
     <footer class="card-footer">
-      <nuxt-link :to="`/blogs/${blog.slug}`" class="card-footer-item">Read More</nuxt-link>
+      <nuxt-link :to="`/blog/${blog.slug}`" class="card-footer-item">Read More</nuxt-link>
     </footer>
   </div>
 </template>
