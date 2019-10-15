@@ -29,6 +29,7 @@ module.exports = {
     { src: '~/plugins/vuelidate' },
     { src: '~/plugins/integrations' },
     { src: '~/plugins/components' },
+    { src: '~/plugins/tooltip' },
     { src: '~/plugins/toasted', ssr: false },
     { src: '~/plugins/paginate', ssr: false }
   ],
