@@ -16,10 +16,11 @@ export const SET_USER = 'SET_USER'
 export const SET_LOADING = 'SET_LOADING'
 export const SET_ERROR = 'SET_ERROR'
 
-
 export const SET_BLOG = 'SET_BLOG'
 export const SET_USER_BLOGS = 'SET_USER_BLOGS'
 export const DELETE_BLOG = 'DELETE_BLOG'
 export const SET_PUBLISHED_BLOG = 'SET_PUBLISHED_BLOG'
 export const SET_BLOG_PAGINATION = 'SET_BLOG_PAGINATION'
 export const SET_BLOG_CURRENT_PAGE = 'SET_BLOG_CURRENT_PAGE'
+
+export const SET_HERO = 'SET_HERO'

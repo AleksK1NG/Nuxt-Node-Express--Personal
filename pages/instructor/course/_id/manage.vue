@@ -17,7 +17,7 @@
             openBtnClass="button is-primary is-inverted is-medium is-outlined"
             title="Make Course Hero"
             @opened="applyCourseValues"
-            @submitted="() => {}"
+            @submitted="createCourseHero"
           >
             <div>
               <form>
@@ -44,7 +44,7 @@
                   />
                 </div>
                 <div class="field">
-                  <label class="label">Course image</label>
+                  <label class="label">Hero image</label>
                   <span class="label-info">Image in format 3 by 1 (720 x 240)</span>
                   <input
                     v-model="courseHero.image"
@@ -153,16 +153,32 @@ export default {
         })
         .catch(() => this.$toasted.error('Error', { duration: 3000, position: 'top-center' }))
     },
-    navigateTo(step) {
-      this.activeStep = step
+
+    createCourseHero({ closeModal }) {
+      const heroData = { ...this.courseHero }
+      heroData.product = { ...this.course }
+      this.$store
+        .dispatch('hero/createHero', heroData)
+        .then(() => {
+          closeModal()
+          this.$toasted.success('Course Hero was created!', { duration: 3000, position: 'top-center' })
+        })
+        .catch(() => this.$toasted.error('Error', { duration: 3000, position: 'top-center' }))
     },
-    activeComponentClass(step) {
-      return this.activeStep === step ? 'is-active' : ''
-    },
+
     handleCourseUpdate({ value, field }) {
       // this.$store.dispatch('instructor/course/updateCourseValue', {value, field})
       this.$store.commit(`instructor/course/${UPDATE_COURSE_VALUE}`, { field, value })
     },
+
+    navigateTo(step) {
+      this.activeStep = step
+    },
+
+    activeComponentClass(step) {
+      return this.activeStep === step ? 'is-active' : ''
+    },
+
     applyCourseValues() {
       // !this.courseHero.title && this.$set(this.courseHero, 'title', this.course.title)
       // !this.courseHero.subtitle && this.$set(this.courseHero, 'subtitle', this.course.subtitle)
@@ -173,6 +189,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 .manage-page {
   .label-info {
