@@ -4,8 +4,11 @@
       <nuxt-link class="navbar-item" to="/">
         <h1 class="brand-title">Promo-Yourself</h1>
       </nuxt-link>
+      <!-- Adds click to open -->
+      <!-- Adds active class -->
       <a
-        @click="() => {}"
+        @click="isActive = !isActive"
+        :class="{ 'is-active': isActive }"
         role="button"
         class="navbar-burger burger"
         aria-label="menu"
@@ -18,7 +21,8 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <!-- Adds active class -->
+    <div :class="{ 'is-active': isActive }" id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
         <nav-link to="/" class="navbar-item">
           Home
@@ -40,11 +44,13 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
+            <!-- If Authenticated -->
             <template v-if="isAuth">
               <figure class="image avatar is-48x48 m-r-sm">
                 <img class="is-rounded" :src="user.avatar" />
               </figure>
               <div class="m-r-sm m-b-sm">Welcome {{ user.username }}!</div>
+              <!-- If Admin -->
               <button v-if="isAdmin" class="button is-link is-outlined" @click="() => $router.push('/instructor')">
                 Instructor
               </button>
@@ -71,6 +77,9 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'NavBar',
+  data: () => ({
+    isActive: false
+  }),
   computed: {
     ...mapGetters({
       user: 'auth/userGetter',
