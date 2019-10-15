@@ -48,4 +48,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.links {
+  padding-top: 15px;
+}
+</style>
