@@ -7,13 +7,13 @@
 
 <script>
 import { Editor, EditorContent } from 'tiptap'
-import CourseMenu from '~/components/editor/CourseMenu'
 import { Bold, Italic, History, OrderedList, BulletList, ListItem } from 'tiptap-extensions'
+import CourseMenu from './CourseMenu'
 export default {
   name: 'CourseEditor',
   components: {
+    CourseMenu,
     EditorContent,
-    CourseMenu
   },
   props: {
     initialContent: {
