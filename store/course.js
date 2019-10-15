@@ -12,6 +12,7 @@ export const actions = {
     commit(SET_LOADING, true)
     try {
       const courses = await this.$axios.$get('/api/v1/products')
+      debugger
       commit(SET_COURSES, courses)
       commit(SET_LOADING, false)
       commit(SET_ERROR, null)

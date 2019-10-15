@@ -24,6 +24,9 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
+  styleResources: {
+    scss: ['@/assets/scss/variables.scss']
+  },
   plugins: [
     { src: '~/plugins/filters' },
     { src: '~/plugins/vuelidate' },
@@ -43,7 +46,8 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    'portal-vue/nuxt'
+    'portal-vue/nuxt',
+    '@nuxtjs/style-resources'
   ],
   /*
    ** Axios module configuration
