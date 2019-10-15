@@ -27,6 +27,7 @@
             <td class="modal-td" v-show="false">
               <portal :to="`modal-view-${hero._id}`">
                 <Modal
+                  @submitted="activateHero($event, hero._id)"
                   :ref="`modal-${hero._id}`"
                   :showButton="false"
                   actionTitle="Make Active"
@@ -58,25 +59,43 @@ export default {
   components: {
     Modal
   },
+
   computed: {
     heroes() {
       return this.$store.state.instructor.heroes
     },
+
     activeHero() {
       return this.$store.state.hero.hero
     }
   },
+
   async fetch({ store }) {
     await store.dispatch('instructor/fetchHeroes')
   },
+
   methods: {
     openModal(modalId) {
       const modal = this.$refs[`modal-${modalId}`][0]
       modal.openModal()
+    },
+
+    activateHero({ closeModal }, heroId) {
+      this.$store
+        .dispatch('instructor/activateHero', heroId)
+        .then(() => {
+          this.$toasted.success('Hero was Successfuly Activated!', { duration: 3000, position: 'top-center' })
+          closeModal()
+        })
+        .catch(() => {
+          this.$toasted.error('Some error', { duration: 3000, position: 'top-center' })
+          closeModal()
+        })
     }
   }
 }
 </script>
+
 <style scoped lang="scss">
 .heroes-page {
   max-width: 1000px;
