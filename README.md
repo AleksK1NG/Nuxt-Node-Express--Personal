@@ -1,22 +1,29 @@
-# Nuxt-Node-Express--Personal
+<p align="center"><img align="center" style="width:320px" src="https://nuxtjs.org/meta_400.png"/></p><br/>
 
-> My superb Nuxt.js project
+# Nuxt.js Node.js FullStack Example Project
 
-## Build Setup
+#### TODO:
+ * Deploy to Heroku
+ * Add more features
 
-``` bash
-# install dependencies
-$ npm run install
 
-# serve with hot reload at localhost:3000
-$ npm run dev
 
-# build for production and launch server
-$ npm run build
-$ npm run start
 
-# generate static project
-$ npm run generate
-```
+##### Technologies used:
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+* [Nuxt.js](https://nuxtjs.org/)
+* [Node.js](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [Passport.js](www.passportjs.org/)
+* [Vuelidate](https://vuelidate.netlify.com)
+* [Vuelidate](https://vuelidate.netlify.com)
+
+
+
+
+
+
+
+
+
+##### Author [Alexander Bryksin](https://github.com/AleksK1NG)
