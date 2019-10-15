@@ -33,7 +33,7 @@ export default {
   name: 'CoursesPage',
   computed: {
     course() {
-      return this.$store.state.course.item
+      return this.$store.state.course.course
     }
   },
   async fetch({ store, params }) {
@@ -41,14 +41,6 @@ export default {
   }
 }
 </script>
-
-<!-- Fetch course by Slug -->
-<!-- 1. create action "fetchCourseBySlug" in store/course.js -->
-<!-- 2. send GET request '/api/v1/products/s/:slug' -->
-<!-- 3. expect to receive "course" in "then" and commit it to state -->
-<!-- 4. get course in computed properties -->
-<!-- 5. Complete TODO's -->
-<!-- 6. Navigate to detail page from home page when clicking on "Learn More" -->
 
 <style lang="scss">
 .what-you-get {
