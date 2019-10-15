@@ -1,6 +1,6 @@
 <template>
   <div class="editor course-editor">
-    <course-menu :editor="editor" />
+    <CourseMenu :editor="editor" />
     <editor-content class="editor__content" :editor="editor" />
   </div>
 </template>
