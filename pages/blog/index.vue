@@ -18,7 +18,7 @@
             <!-- end of blog -->
             <!-- pagination -->
             <div v-if="pagination.pageCount && pagination.pageCount > 1" class="section">
-              <no-ssr>
+              <no-ssr placeholder="Loading...">
                 <paginate
                   v-model="currentPage"
                   :page-count="pagination.pageCount"
@@ -100,8 +100,8 @@ export default {
       filter.pageSize = parseInt(pageSize, 10)
       store.commit(`blog/${SET_BLOG_CURRENT_PAGE}`, filter.pageNum)
     } else {
-      filter.pageNum = 1
-      filter.pageSize = 6
+      filter.pageNum = store.state.blog.pagination.pageNum
+      filter.pageSize = store.state.blog.pagination.pageSize
     }
 
     await store.dispatch('blog/fetchAllBlogs', filter)

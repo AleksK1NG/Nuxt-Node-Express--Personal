@@ -17,7 +17,7 @@ export const state = () => ({
   pagination: {
     count: 0,
     pageCount: 0,
-    pageSize: 6,
+    pageSize: 2,
     pageNum: 1
   },
   isLoading: false,
