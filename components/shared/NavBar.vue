@@ -20,21 +20,21 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <nuxt-link to="/" class="navbar-item">
+        <nav-link to="/" class="navbar-item">
           Home
-        </nuxt-link>
-        <nuxt-link to="/courses" class="navbar-item">
+        </nav-link>
+        <nav-link to="/courses" class="navbar-item">
           Courses
-        </nuxt-link>
-        <nuxt-link to="/blog" class="navbar-item">
-          Blogs
-        </nuxt-link>
-        <nuxt-link to="/about" class="navbar-item">
+        </nav-link>
+        <nav-link to="/blog" class="navbar-item">
+          Blog
+        </nav-link>
+        <nav-link to="/about" class="navbar-item">
           About
-        </nuxt-link>
-        <nuxt-link to="/cv" class="navbar-item">
+        </nav-link>
+        <nav-link to="/cv" class="navbar-item">
           Cv
-        </nuxt-link>
+        </nav-link>
       </div>
 
       <div class="navbar-end">
