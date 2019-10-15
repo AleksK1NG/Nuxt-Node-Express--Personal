@@ -29,6 +29,7 @@
 </template>
 <script>
 export default {
+  name: 'CourseCardTooltip',
   props: {
     title: { required: false, type: String },
     subtitle: { required: false, type: String },
