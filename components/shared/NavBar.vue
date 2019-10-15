@@ -31,7 +31,7 @@
           Courses
         </nav-link>
         <nav-link to="/blog" class="navbar-item">
-          Blog
+          Blogs
         </nav-link>
         <nav-link to="/about" class="navbar-item">
           About
@@ -105,6 +105,9 @@ export default {
 }
 .navbar-brand {
   padding-right: 30px;
+  @media screen and (max-width: 1023px) {
+    padding-right: 0px;
+  }
 }
 .avatar {
   margin-right: 5px;
