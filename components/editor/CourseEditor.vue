@@ -13,7 +13,7 @@ export default {
   name: 'CourseEditor',
   components: {
     CourseMenu,
-    EditorContent,
+    EditorContent
   },
   props: {
     initialContent: {
@@ -29,12 +29,21 @@ export default {
   // This is called only on client (in browser)
   mounted() {
     this.editor = new Editor({
-      extensions: [new Bold(), new Italic(), new History(), new OrderedList(), new BulletList(), new ListItem()]
+      extensions: [new Bold(), new Italic(), new History(), new OrderedList(), new BulletList(), new ListItem()],
+      onUpdate: () => {
+        this.emitUpdate()
+      }
     })
     this.initialContent && this.editor.setContent(this.initialContent)
   },
   beforeDestroy() {
     this.editor && this.editor.destroy()
+  },
+  methods: {
+    emitUpdate() {
+      const content = this.editor.getHTML()
+      this.$emit('editorUpdated', content)
+    }
   }
 }
 </script>
