@@ -1,13 +1,14 @@
 <template>
-  <h2>CV Page</h2>
+  <div>
+    <h2>Cv Page</h2>
+<!--    <iframe :style="{ width: '100%', height: '100%' }" src="../../assets/cv/AlexBryksin-Linkedin.pdf"></iframe>-->
+  </div>
 </template>
-
 <script>
-  export default {
-    name: 'CvPage'
+export default {
+  name: 'CvPage',
+  head: {
+    title: 'Alex Bryksin CV | Alex Bryksin'
   }
+}
 </script>
-
-<style scoped>
-
-</style>
