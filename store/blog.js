@@ -1,5 +1,12 @@
 import Vue from 'vue'
-import { SET_BLOG, SET_BLOG_PAGINATION, SET_ERROR, SET_LOADING, SET_USER_BLOGS } from '~/store/constants'
+import {
+  SET_BLOG,
+  SET_BLOG_CURRENT_PAGE,
+  SET_BLOG_PAGINATION,
+  SET_ERROR,
+  SET_LOADING,
+  SET_USER_BLOGS
+} from '~/store/constants'
 
 export const state = () => ({
   blog: {},
@@ -24,17 +31,19 @@ export const mutations = {
   [SET_USER_BLOGS]: (state, { field, items }) => (state.blogItems[field] = items),
   [SET_BLOG]: (state, blog) => (state.blog = blog),
   [SET_BLOG_PAGINATION]: (state, { count, pageCount }) => {
-    Vue.set(state.pagination, count, count)
-    Vue.set(state.pagination, pageCount, pageCount)
-    debugger
-  }
+    Vue.set(state.pagination, 'count', count)
+    Vue.set(state.pagination, 'pageCount', pageCount)
+  },
+  [SET_BLOG_CURRENT_PAGE]: (state, pageNum) => Vue.set(state.pagination, 'pageNum', pageNum)
 }
 export const actions = {
-  async fetchAllBlogs({ commit }) {
+  async fetchAllBlogs({ commit }, filter) {
     commit(SET_LOADING, true)
+    const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
 
     try {
-      const { blogs, count, pageCount } = await this.$axios.$get('/api/v1/blogs')
+      const { blogs, count, pageCount } = await this.$axios.$get(url)
+
       // set user blogs by field name
       commit(SET_USER_BLOGS, { field: 'all', items: blogs })
       commit(SET_BLOG_PAGINATION, { count, pageCount })

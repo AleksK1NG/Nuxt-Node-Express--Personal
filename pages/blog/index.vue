@@ -3,7 +3,9 @@
     <div class="main-content">
       <div class="container">
         <div class="columns is-mobile">
+          <!-- posts -->
           <div class="column is-8">
+            <!-- blog -->
             <div v-for="blog in publishedBlogs" :key="blog._id" class="section">
               <div class="post">
                 <div @click="$router.push(`/blogs/${blog.slug}`)" class="post-header clickable">
@@ -13,35 +15,43 @@
                 <div class="post-content">by {{ blog.author.name }}, {{ blog.createdAt | formatDate }}</div>
               </div>
             </div>
+            <!-- end of blog -->
+            <!-- pagination -->
             <div class="section">
-              <no-ssr placeholder="Loading...">
+              <no-ssr>
                 <paginate
-                  :page-count="5"
-                  :click-handler="handleClick"
-                  :prev-text="'Prev'"
-                  :next-text="'Next'"
+                  v-model="currentPage"
+                  :page-count="pagination.pageCount"
+                  :click-handler="fetchBlogs"
+                  :prev-text="'<- Prev'"
+                  :next-text="'Next ->'"
                   :container-class="'paginationContainer'"
-                >
-                </paginate>
+                />
               </no-ssr>
             </div>
+            <!-- end of pagination -->
           </div>
+          <!-- side bar -->
           <div class="column is-4 is-narrow">
+            <!-- featured -->
             <div class="section">
               <div class="sidebar">
                 <div class="sidebar-header">
                   <h4 class="title is-4">Featured Posts</h4>
                 </div>
                 <div class="sidebar-list">
+                  <!-- Featured Blogs -->
                   <p v-for="fBlog in featuredBlogs" :key="fBlog._id">
                     <nuxt-link :to="`/blogs/${fBlog.slug}`">
                       {{ fBlog.title }}
                     </nuxt-link>
                   </p>
+                  <!-- Featured Blogs -->
                 </div>
               </div>
             </div>
           </div>
+          <!-- end of side bar -->
         </div>
       </div>
     </div>
@@ -49,21 +59,40 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import { SET_BLOG_CURRENT_PAGE } from '../../store/constants'
 export default {
   name: 'blogPage',
   computed: {
     ...mapState({
       publishedBlogs: (state) => state.blog.blogItems.all,
-      featuredBlogs: (state) => state.blog.blogItems.featured
-    })
+      featuredBlogs: (state) => state.blog.blogItems.featured,
+      pagination: (state) => state.blog.pagination
+    }),
+    currentPage: {
+      get() {
+        return this.$store.state.blog.pagination.pageNum
+      },
+      set(value) {
+        this.$store.commit(`blog/${SET_BLOG_CURRENT_PAGE}`, value)
+      }
+    }
   },
   methods: {
-    handleClick() {
-      alert('Page Clicked!')
+    fetchBlogs() {
+      const filter = {}
+      filter.pageNum = this.pagination.pageNum
+      filter.pageSize = this.pagination.pageSize
+
+      this.$store.dispatch('blog/fetchAllBlogs', filter)
+
     }
   },
   async fetch({ store }) {
-    await store.dispatch('blog/fetchAllBlogs')
+    const filter = {}
+    filter.pageNum = 1
+    filter.pageSize = 2
+
+    await store.dispatch('blog/fetchAllBlogs', filter)
     await store.dispatch('blog/fetchFeaturedBlogs', { 'filter[featured]': true })
   }
 }
