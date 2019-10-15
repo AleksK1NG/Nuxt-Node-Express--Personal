@@ -1,5 +1,14 @@
 <template>
   <div>
+    <product-hero :title="course.title" :subtitle="course.subtitle" :author="course.author">
+      <product-hero-card
+        :price="course.price"
+        :discountedPrice="course.discountedPrice"
+        :navigateTo="course.productLink"
+        :requirements="course.requirements"
+        :image="course.image"
+      />
+    </product-hero>
     <div class="container">
       <div class="columns">
         <div class="column is-9">
@@ -29,8 +38,11 @@
   </div>
 </template>
 <script>
+import ProductHero from '../../components/hero/ProductHero'
+import ProductHeroCard from '../../components/hero/ProductHeroCard'
 export default {
   name: 'CoursesPage',
+  components: { ProductHeroCard, ProductHero },
   computed: {
     course() {
       return this.$store.state.course.course

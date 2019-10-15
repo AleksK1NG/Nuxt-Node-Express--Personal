@@ -13,7 +13,7 @@
         </div>
       </div>
       <a :href="navigateTo" target="_" class="button is-fullwidth is-large is-danger is-outlined m-b-sm">
-        Enroll on Udemy
+        Enroll Course
       </a>
       <div class="content">
         <div class="m-b-none course-features">Course Requirements</div>
