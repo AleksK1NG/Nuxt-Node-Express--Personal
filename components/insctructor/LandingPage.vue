@@ -40,7 +40,10 @@
             <!--              placeholder="Write something catchy about the course"-->
             <!--            >-->
             <!--            </textarea>-->
-            <course-editor :initialContent="course.description" />
+            <course-editor
+              @editorUpdated="(content) => emitCourseValue(content, 'description')"
+              :initialContent="course.description"
+            />
           </div>
         </div>
         <div class="field">
@@ -122,15 +125,15 @@ export default {
   },
   methods: {
     emitCourseValue(e, field) {
-      const value = e.target.value
+      const value = e.target ? e.target.value : e
       if (field === 'category') {
         return this.emitCategory(value, field)
       }
-      return this.$emit('emitCourseValue', { value, field })
+      return this.$emit('courseValueUpdated', { value, field })
     },
     emitCategory(categoryId, field) {
       const foundCategory = this.categories.find((c) => c._id === categoryId)
-      this.$emit('emitCourseValue', { value: foundCategory, field })
+      this.$emit('courseValueUpdated', { value: foundCategory, field })
     }
   }
 }
