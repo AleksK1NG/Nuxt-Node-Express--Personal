@@ -48,6 +48,9 @@ import { mapState } from 'vuex'
 import CourseCardTooltip from '../components/CourseCardTooltip'
 
 export default {
+  head: {
+    title: 'Online Courses and Blog | Alex Bryksin'
+  },
   components: { CourseCardTooltip, BlogCard, CourseCard, Hero },
   computed: {
     ...mapState({

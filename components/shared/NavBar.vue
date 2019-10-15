@@ -31,7 +31,7 @@
           Courses
         </nav-link>
         <nav-link to="/blog" class="navbar-item">
-          Blogs
+          Blog
         </nav-link>
         <nav-link to="/about" class="navbar-item">
           About

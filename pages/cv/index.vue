@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Cv Page</h2>
-<!--    <iframe :style="{ width: '100%', height: '100%' }" src="../../assets/cv/AlexBryksin-Linkedin.pdf"></iframe>-->
+<!--    <iframe :style="{ width: '100%', height: '100%' }" src="/static/AlexBryksin-Linkedin.pdf"></iframe>-->
   </div>
 </template>
 <script>
