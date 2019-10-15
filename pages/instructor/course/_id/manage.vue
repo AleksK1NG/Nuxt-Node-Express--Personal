@@ -11,6 +11,55 @@
             Save
           </button>
         </div>
+        <div class="full-page-takeover-header-button">
+          <Modal
+            openTitle="Favorite"
+            openBtnClass="button is-primary is-inverted is-medium is-outlined"
+            title="Make Course Hero"
+            @opened="applyCourseValues"
+            @submitted="() => {}"
+          >
+            <div>
+              <form>
+                <div class="field">
+                  <label class="label">Hero title</label>
+                  <span class="label-info">Suggested 64 Characters</span>
+                  <div class="control">
+                    <input
+                      v-model="courseHero.title"
+                      class="input is-medium"
+                      type="text"
+                      placeholder="Amazing course discount"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Hero subtitle</label>
+                  <span class="label-info">Suggested 128 Characters</span>
+                  <input
+                    v-model="courseHero.subtitle"
+                    class="input is-medium"
+                    type="text"
+                    placeholder="Get all of the course for 9.99$"
+                  />
+                </div>
+                <div class="field">
+                  <label class="label">Course image</label>
+                  <span class="label-info">Image in format 3 by 1 (720 x 240)</span>
+                  <input
+                    v-model="courseHero.image"
+                    class="input is-medium"
+                    type="text"
+                    placeholder="Some image in format 3 by 1 (720 x 240)"
+                  />
+                  <figure class="image is-3by1">
+                    <img :src="courseHero.image" />
+                  </figure>
+                </div>
+              </form>
+            </div>
+          </Modal>
+        </div>
       </template>
     </Header>
     <div class="course-manage">
@@ -69,13 +118,15 @@ import TargetStudents from '../../../../components/insctructor/TargetStudents'
 import MultiComponentMixin from '../../../../mixins/MultiComponentMixin'
 import { mapState } from 'vuex'
 import { UPDATE_COURSE_VALUE } from '../../../../store/constants'
+import Modal from '../../../../components/shared/Modal'
 export default {
   name: 'manage',
   layout: 'instructor',
-  components: { TargetStudents, Price, Status, LandingPage, Header },
+  components: { Modal, TargetStudents, Price, Status, LandingPage, Header },
   data: () => ({
     steps: ['TargetStudents', 'LandingPage', 'Price', 'Status'],
-    activeStep: 1
+    activeStep: 1,
+    courseHero: {}
   }),
   async fetch({ store, params }) {
     try {
@@ -111,6 +162,13 @@ export default {
     handleCourseUpdate({ value, field }) {
       // this.$store.dispatch('instructor/course/updateCourseValue', {value, field})
       this.$store.commit(`instructor/course/${UPDATE_COURSE_VALUE}`, { field, value })
+    },
+    applyCourseValues() {
+      // !this.courseHero.title && this.$set(this.courseHero, 'title', this.course.title)
+      // !this.courseHero.subtitle && this.$set(this.courseHero, 'subtitle', this.course.subtitle)
+      this.$set(this.courseHero, 'title', this.course.title)
+      this.$set(this.courseHero, 'subtitle', this.course.subtitle)
+      this.$set(this.courseHero, 'image', this.course.image)
     }
   }
 }
